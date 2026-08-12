@@ -1,18 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سر الأهرامات - النسخة الاحترافية</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- خطوط احترافية: Reem Kufi للعناوين والطابع الكلاسيكي، Cairo للنصوص لقراءة مريحة -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سر الأهرامات - النسخة المحمية</title>
+
+    <!-- ===== حماية متقدمة ===== -->
+    <script>
+        // ==================== حماية الكود المتقدمة ====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault();
+                return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault();
+                return false; }
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+                const target = e.target;
+                if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && !target.isContentEditable) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
+
+        (function detectDevTools() {
+            const startTime = new Date().getTime();
+            window.addEventListener('resize', function() {
+                const currentTime = new Date().getTime();
+                if (currentTime - startTime > 5000) {
+                    const widthDiff = window.outerWidth - window.innerWidth;
+                    const heightDiff = window.outerHeight - window.innerHeight;
+                    if (widthDiff > 160 || heightDiff > 160) { window.location.reload(); }
+                }
+            });
+        })();
+
+        function preventDebugging() {
+            if (window.console) {
+                const originalLog = console.log;
+                console.log = function() {
+                    const args = Array.from(arguments);
+                    if (args.some(arg => typeof arg === 'string' && arg.includes('password'))) return;
+                    originalLog.apply(console, arguments);
+                };
+            }
+        }
+        preventDebugging();
+
+        function obfuscateSensitiveData() {
+            document.querySelectorAll('a[data-encoded]').forEach(link => {
+                if (link.getAttribute('data-encoded')) {
+                    link.href = atob(link.getAttribute('data-encoded'));
+                }
+            });
+        }
+
+        function preventXSS() {
+            const originalCreateElement = document.createElement;
+            document.createElement = function(tagName) {
+                const element = originalCreateElement.call(document, tagName);
+                if (tagName.toLowerCase() === 'script') {
+                    Object.defineProperty(element, 'src', {
+                        set: function(value) {
+                            if (!value.startsWith('https://cdn.tailwindcss.com') &&
+                                !value.startsWith('https://fonts.googleapis.com') &&
+                                !value.startsWith('https://api.open-meteo.com')) {
+                                return;
+                            }
+                            this.setAttribute('src', value);
+                        }
+                    });
+                }
+                return element;
+            };
+        }
+        preventXSS();
+
+        function addDigitalWatermark() {
+            const watermark = document.createElement('div');
+            watermark.id = 'digital-watermark';
+            watermark.style.cssText = `
+                        position: fixed; bottom: 5px; right: 5px; color: rgba(212, 175, 55, 0.15);
+                        font-size: 8px; font-family: monospace; pointer-events: none; z-index: 9999; user-select: none;
+                    `;
+            watermark.textContent = '© سر الأهرامات | ' + new Date().getFullYear() + ' | جميع الحقوق محفوظة';
+            document.body.appendChild(watermark);
+        }
+
+        function protectImages() {
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('contextmenu', e => e.preventDefault());
+                img.addEventListener('copy', e => e.preventDefault());
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            obfuscateSensitiveData();
+            addDigitalWatermark();
+            protectImages();
+        });
+
+        // تكوين Tailwind (اختياري)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        reem: ['Reem Kufi', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: '#d4af37',
+                        'gold-light': '#f3e5ab',
+                        'gold-dark': '#997a00',
+                        'bg-dark': '#07090e',
+                        paper: '#f9f4e8',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ===== الخطوط والأنماط ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
     <style>
+        /* ===== حماية ===== */
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        input,
+        textarea,
+        [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            user-select: text !important;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+
+        ::selection {
+            background: rgba(212, 175, 55, 0.3);
+            color: #fff;
+        }
+
+        /* ===== أنماط التصميم الأساسية ===== */
         :root {
             --gold-primary: #d4af37;
             --gold-light: #f3e5ab;
@@ -23,14 +170,14 @@
             --text-muted: #4a5568;
         }
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 50% 50%, #151a28 0%, var(--bg-dark) 100%);
+            background-image: radial-gradient(circle at 50% 50%, #151a28 0%, var(--bg-dark) 100%);
             font-family: 'Cairo', sans-serif;
             overflow: hidden;
             color: var(--gold-light);
@@ -104,16 +251,32 @@
         }
 
         @keyframes pulse-bg {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
         }
         @keyframes float-splash {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); box-shadow: 0 15px 50px rgba(212, 175, 55, 0.6); }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+                box-shadow: 0 15px 50px rgba(212, 175, 55, 0.6);
+            }
         }
         @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         #app-container {
@@ -130,14 +293,12 @@
         .book-wrapper {
             position: relative;
             width: 90vw;
-            max-width: 650px; /* تصميم كصفحة واحدة مخطوطة فخمة */
+            max-width: 650px;
             height: 85vh;
             max-height: 850px;
-            box-shadow: 
-                25px 25px 50px rgba(0,0,0,0.8),
-                -10px 0 20px rgba(0,0,0,0.5) inset;
+            box-shadow: 25px 25px 50px rgba(0, 0, 0, 0.8), -10px 0 20px rgba(0, 0, 0, 0.5) inset;
             border-radius: 5px 20px 20px 5px;
-            background: var(--dark-bg);
+            background: var(--bg-dark);
         }
 
         .page {
@@ -148,17 +309,16 @@
             height: 100%;
             background-color: var(--paper);
             border-radius: 5px 15px 15px 5px;
-            box-shadow: inset -5px 0 20px rgba(0,0,0,0.1);
-            transform-origin: right center; /* مفصلة الكتاب على اليمين */
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), 
-                        opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: inset -5px 0 20px rgba(0, 0, 0, 0.1);
+            transform-origin: right center;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+                opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
             transform-style: preserve-3d;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* نسيج الورق */
         .page::before {
             content: '';
             position: absolute;
@@ -168,7 +328,6 @@
             z-index: 1;
         }
 
-        /* ظل المنتصف (الكعب) */
         .page::after {
             content: '';
             position: absolute;
@@ -176,7 +335,7 @@
             right: 0;
             width: 40px;
             height: 100%;
-            background: linear-gradient(to left, rgba(0,0,0,0.3) 0%, transparent 100%);
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
             pointer-events: none;
             z-index: 2;
         }
@@ -187,7 +346,6 @@
             pointer-events: none;
         }
 
-        /* الغلاف */
         .cover {
             background-image: url('https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png');
             background-size: cover;
@@ -195,9 +353,11 @@
             background-color: var(--bg-dark);
             border: none;
         }
-        .cover::before { display: none; }
+        .cover::before {
+            display: none;
+        }
         .cover::after {
-            background: linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%);
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
         }
 
         .page-content {
@@ -207,19 +367,26 @@
             height: 100%;
             overflow-y: auto;
             color: var(--text-main);
-            /* تصميم إطار ذهبي داخلي احترافي */
             border: 2px solid rgba(212, 175, 55, 0.3);
             margin: 1rem;
             border-radius: 8px;
             outline: 1px solid rgba(212, 175, 55, 0.6);
             outline-offset: -6px;
             background: rgba(255, 255, 255, 0.4);
+            user-select: text;
+            /* السماح بتحديد النص داخل المحتوى فقط */
         }
 
-        /* شريط التمرير */
-        .page-content::-webkit-scrollbar { width: 5px; }
-        .page-content::-webkit-scrollbar-track { background: transparent; }
-        .page-content::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
+        .page-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .page-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .page-content::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 10px;
+        }
 
         .chapter-title {
             font-family: 'Reem Kufi', sans-serif;
@@ -314,33 +481,57 @@
         }
 
         @media (max-width: 768px) {
-            .splash-title { font-size: 2.5rem; }
-            .chapter-title { font-size: 1.8rem; }
-            .book-text p { font-size: 1.1rem; line-height: 1.9; }
-            .book-wrapper { width: 95vw; height: 80vh; }
-            .page-content { padding: 1.5rem 1rem; }
+            .splash-title {
+                font-size: 2.5rem;
+            }
+            .chapter-title {
+                font-size: 1.8rem;
+            }
+            .book-text p {
+                font-size: 1.1rem;
+                line-height: 1.9;
+            }
+            .book-wrapper {
+                width: 95vw;
+                height: 80vh;
+            }
+            .page-content {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* ===== تحسينات إضافية للحماية ===== */
+        .book-text ul {
+            list-style: disc;
+            padding-right: 1.5rem;
+        }
+        .book-text ul li {
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
+
 <body>
 
+    <!-- ===== شاشة البداية ===== -->
     <div id="splash-screen">
         <div class="splash-bg"></div>
         <div class="splash-content">
             <div class="splash-image-container">
-                <img src="https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png" alt="غلاف الكتاب" class="splash-image">
+                <img src="https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png" alt="غلاف الكتاب" class="splash-image" />
             </div>
             <h1 class="splash-title">سر الأهرامات</h1>
             <p class="splash-subtitle">آلة هندسية أم مقبرة؟</p>
         </div>
     </div>
 
+    <!-- ===== تطبيق الكتاب ===== -->
     <div id="app-container">
         <div class="book-wrapper">
             <div id="book">
-                <!-- Pages injected by JS -->
+                <!-- سيتم حقن الصفحات بواسطة JavaScript -->
             </div>
-            
+
             <div class="controls">
                 <button class="btn" id="prev-btn" onclick="goPrevPage()">
                     <i class="fas fa-arrow-right"></i> السابق
@@ -354,252 +545,235 @@
     </div>
 
     <script>
-        const bookData = [
-            {
-                isCover: true,
-                content: `` // الغلاف يعتمد على الصورة بالكامل
-            },
-            {
-                title: "سر الأهرامات",
-                content: `
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <span class="highlight" style="font-size: 2rem; margin-bottom: 2rem;">هل كان الهرم الأكبر مقبرة…<br>أم آلة هندسية للطاقة؟</span>
-                        <p style="text-align: center; color: var(--text-muted); font-size: 1.1rem;">تأليف وإعداد: بحث شامل في وظيفة الأهرامات</p>
-                    </div>
-                `
-            },
-            {
-                title: "مقدمة",
-                content: `
-                    <p>منذ آلاف السنين يقف الهرم الأكبر في هضبة الجيزة كأنه رسالة تركها أصحابها للعالم، ثم أُغلقت أبوابها واختفت مفاتيحها.</p>
-                    <p>نعرف اسم الملك الذي ارتبط به الهرم: خوفو. ونعرف أن المصريين القدماء بنوا مجمعًا ضخمًا حوله، ونعرف أن الهرم أحد أعظم الإنجازات الهندسية في العالم القديم. لكن السؤال الذي يثير الجدل يبدأ من هنا:</p>
-                    <span class="highlight">هل فهمنا فعلًا الوظيفة الأصلية للهرم الأكبر؟</span>
-                    <p>الرواية التقليدية تعتبر الهرم مقبرة ملكية. وهذا هو التفسير الرسمي السائد اليوم؛ فوزارة السياحة والآثار المصرية تصف الهرم الأكبر بأنه مقبرة الملك خوفو، وتذكر وجود تابوت حجري في حجرة الملك. كما أن مجمعات الجيزة ترتبط بمنشآت جنائزية ومعابد ومراكب ملكية.</p>
-                    <p>لكن داخل هذه القصة توجد أسئلة لا يمكن تجاهلها:</p>
-                    <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
-                        <li><span style="color: var(--text-main);">لماذا بُني الهرم بهذا التعقيد الهندسي الهائل؟</span></li>
-                        <li><span style="color: var(--text-main);">لماذا يحتوي على ممرات وغرف وفراغات لا نعرف وظيفة بعضها حتى اليوم؟</span></li>
-                        <li><span style="color: var(--text-main);">لماذا ظلّت أجزاء من بنيته الداخلية مجهولة حتى العصر الحديث؟</span></li>
-                        <li><span style="color: var(--text-main);">ولماذا ظهر في عام 2017 اكتشاف علمي لفراغ داخلي ضخم، ولم يتمكن الباحثون حتى الآن من تحديد وظيفته؟</span></li>
-                    </ul>
-                    <p>هذا الكتاب لا يطلب من القارئ أن يصدق كل شيء بلا دليل. بل يفعل العكس. إنه يعيد النظر في الهرم من زاوية مختلفة، ويسأل:</p>
-                    <span class="highlight">ماذا لو كان ما نراه اليوم ليس قبرًا ضخمًا فقط، بل جزءًا من منظومة هندسية أكثر تعقيدًا؟</span>
-                    <p style="text-align: center; font-weight: bold;">وهنا تبدأ رحلة البحث عن السر.</p>
-                `
-            },
-            {
-                title: "الفصل الأول",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الهرم الذي لا يشبه ما نتوقعه من قبر</h3>
-                    <p>عندما نفكر في مقبرة ملكية، نتوقع عادةً أن نجد شيئًا يعرّفنا بصاحب القبر: كتابات، أسماء، مشاهد، طقوس، تماثيل، مقتنيات، أو على الأقل بقايا دفن واضحة.</p>
-                    <p>والحضارة المصرية نفسها تركت لنا أمثلة كثيرة على هذا النوع من العمارة الجنائزية. في المقابر الملكية والأرستقراطية نجد نصوصًا ورسومات ومناظر وقرابين وتماثيل، وكان العالم الآخر عنصرًا أساسيًا في الفن الجنائزي المصري.</p>
-                    <p>لكن الهرم الأكبر مختلف.</p>
-                    <p>ليس المقصود أنه خالٍ تمامًا من أي كتابة؛ فهذا غير صحيح. توجد داخله علامات وكتابات عمالية، كما توجد منشآت جنائزية مرتبطة به خارج جسم الهرم. لكن الهرم الأكبر يفتقد شيئًا مهمًا ظهر لاحقًا بصورة واضحة: نصوص الأهرام الجنائزية المنقوشة داخل الحجرات الداخلية.</p>
-                    <p>أقدم مثال معروف لنصوص الأهرام هو هرم الملك أوناس في سقارة، من الأسرة الخامسة، أي بعد عصر أهرامات الجيزة.</p>
-                    <span class="highlight">إذا كانت النصوص الجنائزية ستصبح لاحقًا جزءًا مهمًا من الأهرامات الملكية، فلماذا لا نجدها في هرم خوفو؟ هل هذا دليل على أن الهرم لم يكن مقبرة؟</span>
-                    <p>ليس بالضرورة. لكنه بالتأكيد سؤال يستحق الدراسة.</p>
-                `
-            },
-            {
-                title: "الفصل الثاني",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">أين جثمان الملك؟</h3>
-                    <p>واحدة من أكثر النقاط إثارة في قضية الهرم الأكبر هي أن مومياء خوفو نفسها لم تُكتشف داخله.</p>
-                    <p>عندما يدخل الزائر اليوم إلى حجرة الملك، يجد التابوت الحجري، لكنه لا يجد الملك. هنا يجب أن نكون دقيقين.</p>
-                    <p>غياب المومياء ليس دليلًا قاطعًا على أن الهرم لم يكن مقبرة. فالمقبرة القديمة يمكن أن تُنهب، ويمكن أن تختفي محتوياتها عبر آلاف السنين. لكن في المقابل، عدم العثور على الجثمان يمنعنا أيضًا من استخدام المومياء باعتبارها الدليل المباشر الذي يحسم المسألة.</p>
-                    <span class="highlight">إذن نحن أمام سؤال مفتوح:<br>هل كان التابوت جزءًا من دفن ملكي فعلًا؟ أم أن له وظيفة أخرى داخل تصميم أكبر؟</span>
-                    <p>والسؤال يصبح أكثر إثارة عندما ننظر إلى الهرم باعتباره مبنى كاملًا، بدلًا من التركيز على الحجرة وحدها.</p>
-                    <p>فالهرم لم يكن مبنى منفردًا في الصحراء. كان مركزًا لمجمع ضخم يضم معابد وممرًا صاعدًا ومنشآت أخرى ومراكب مرتبطة بالملك. وزارة السياحة والآثار المصرية توضح أن مجمعات الجيزة كانت تتكون من الهرم والمعابد والممرات وحفر المراكب، وأن الهرم كان جزءًا من منظومة ملكية كاملة.</p>
-                    <p>وهنا تظهر مفارقة: الهرم نفسه شديد البساطة مقارنةً بالمنظومة المحيطة به.</p>
-                `
-            },
-            {
-                title: "الفصل الثالث",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الهرم والعلوم التي لم نكن نعرفها عنه</h3>
-                    <p>من أكثر الأخطاء شيوعًا أن نتعامل مع الهرم وكأن العلماء عرفوا بالفعل كل ما بداخله. الحقيقة مختلفة.</p>
-                    <p>في سنة 2017 نشر فريق دولي بحثًا في مجلة Nature أعلن فيه اكتشاف فراغ داخلي كبير في الهرم الأكبر باستخدام جسيمات الميون القادمة من الأشعة الكونية. الفراغ أطلق عليه الباحثون اسم Big Void.</p>
-                    <p>قدرت الدراسة أن طوله الأدنى يزيد على 30 مترًا، وأن مقطعه قريب من مقطع المعرض الكبير، وتم تأكيد وجوده بثلاث تقنيات مختلفة للكشف عن الميونات وتحليل مستقل. والأهم أن الباحثين أعلنوا صراحة أن وظيفة هذا الفراغ غير معروفة حتى الآن.</p>
-                    <p>تأمل هذه النقطة. الهرم عمره أكثر من أربعة آلاف عام. ومع ذلك احتاج الإنسان الحديث إلى فيزياء الجسيمات والأشعة الكونية كي يكتشف بنية كبيرة داخله.</p>
-                    <span class="highlight">هذا لا يثبت أن الهرم كان محطة طاقة. لكنّه يثبت شيئًا مهمًا: أن معرفتنا بالبنية الداخلية للهرم ليست مكتملة.</span>
-                    <p>وهذه الحقيقة وحدها تجعل الأسئلة الجديدة مشروعة.</p>
-                `
-            },
-            {
-                title: "الفصل الرابع",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">من الحجر إلى الطاقة</h3>
-                    <p>هنا نصل إلى الفكرة التي يقوم عليها هذا الكتاب.</p>
-                    <span class="highlight">ماذا لو لم يكن السؤال الحقيقي: كيف بنى المصريون الهرم؟ بل: لماذا صمم المصريون الهرم بهذه الطريقة أصلًا؟</span>
-                    <p>عندما ننظر إلى مبنى ضخم من الحجر، يمكننا أن نراه باعتباره عمارة. لكن يمكن للهندسة نفسها أن تؤدي وظائف أخرى. الحجر يمكن أن يخزن الحرارة. المواد المختلفة يمكن أن تتفاعل كهربائيًا وكيميائيًا. الأجسام ذات الأشكال الهندسية المحددة يمكن أن تتفاعل مع الموجات الكهرومغناطيسية. والفراغات يمكن أن تؤثر في السلوك الفيزيائي للموجات داخل المنشآت.</p>
-                    <p>وفي العصر الحديث، نعرف أن الطاقة يمكن نقلها واستحثاثها وتبادلها بطرق لا تعتمد دائمًا على الأسلاك المباشرة.</p>
-                    <p>لكن من هنا يجب أن نفصل بين حقيقتين:</p>
-                    <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
-                        <li><span style="color: var(--text-main);">الحقيقة الأولى: الفيزياء الحديثة تسمح بدراسة الهرم كنظام يمكن أن يتفاعل مع الطاقة والمجالات الكهرومغناطيسية.</span></li>
-                        <li><span style="color: var(--text-main);">الحقيقة الثانية: هذا لا يثبت أن المصريين القدماء استخدموا الهرم فعلًا كمولد كهرباء.</span></li>
-                    </ul>
-                    <p style="text-align: center; font-weight: bold;">وهنا تبدأ فرضية الكتاب.</p>
-                `
-            },
-            {
-                title: "الفصل الخامس",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">هل الهرم يستطيع التفاعل مع الطاقة الكهرومغناطيسية؟</h3>
-                    <p>في الأبحاث الحديثة، دُرست الخصائص الكهرومغناطيسية لنماذج هندسية للهرم الأكبر، بما في ذلك كيفية تفاعل البنية مع المجالات والموجات الكهرومغناطيسية.</p>
-                    <p>هذه الدراسات لا تقول إن المصريين القدماء كانوا يولدون الكهرباء داخل الهرم. لكنها تفتح بابًا فيزيائيًا مهمًا: شكل الهرم ليس مجرد شكل جميل.</p>
-                    <p>فالهندسة يمكن أن تؤثر على تركيز وتوزيع الحقول والموجات. وعندما نتحدث عن الطاقة، يجب ألا نقصر تفكيرنا على الكهرباء التي نراها في الأسلاك الحديثة.</p>
-                    <p>الطاقة موجودة بأشكال متعددة: حرارية، كيميائية، ميكانيكية، كهربائية، وكهرومغناطيسية. ويمكن تحويل أحد أشكالها إلى الآخر.</p>
-                    <span class="highlight">لهذا فإن السؤال العلمي الذي يجب أن نطرحه ليس: «هل الهرم سحر؟»<br><br>بل: هل كانت هندسة الهرم مصممة لاستغلال ظاهرة فيزيائية محددة؟</span>
-                    <p>وهذا سؤال يمكن اختباره.</p>
-                `
-            },
-            {
-                title: "الفصل السادس",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الجرانيت والكوارتز: هل توجد وظيفة تتجاوز البناء؟</h3>
-                    <p>من أكثر الأشياء التي تستحق الدراسة في الهرم استخدام مواد مختلفة في أجزاء مختلفة من بنيته.</p>
-                    <p>حجرة الملك، على سبيل المثال، تحتوي على كتل ضخمة من الجرانيت. والجرانيت يحتوي طبيعيًا على معادن مختلفة، من بينها الكوارتز. الكوارتز معروف علميًا بخصائصه الكهروضغطية؛ أي أن الضغط الميكانيكي على بلورات معينة من الكوارتز يمكن أن يرتبط بتوليد فرق جهد كهربائي، والعكس في بعض التطبيقات.</p>
-                    <p>لكن هنا يجب أن نتوقف.</p>
-                    <p>وجود الكوارتز في الجرانيت لا يعني أن الهرم كان بطارية. ولا يعني أن الضغط الناتج عن وزن الأحجار كان كافيًا لإنتاج كهرباء يمكن استخدامها عمليًا. هذا النوع من الكلام يحتاج إلى تجربة وقياس، وليس إلى تشابهات فقط.</p>
-                    <span class="highlight">ولهذا فإن السؤال الأكثر أهمية هو: هل توجد في الهرم منظومة كاملة من المواد والهندسة والظروف الفيزيائية تسمح بتحويل طاقة طبيعية إلى طاقة قابلة للاستخدام؟</span>
-                    <p>حتى الآن، لا توجد أدلة أثرية حاسمة تثبت ذلك. لكنها واحدة من الفرضيات التي تستحق الاختبار بدلًا من ترديدها بلا تحليل.</p>
-                `
-            },
-            {
-                title: "الفصل السابع",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الماء… الحلقة المفقودة؟</h3>
-                    <p>يذهب بعض أصحاب نظرية «محطة الطاقة» إلى أن الماء كان عنصرًا أساسيًا في منظومة الهرم.</p>
-                    <p>الفكرة تقوم على أن الماء يمكن أن يؤدي دورًا مهمًا في بعض الأنظمة الفيزيائية: من نقل الحرارة إلى التأثير في الضغط والتدفق والخواص الكهربائية.</p>
-                    <p>لكن مجرد وجود الماء في البيئة المحيطة بالجيزة لا يكفي لإثبات وجود نظام لتوليد الطاقة. حتى يتحول الكلام إلى علم، نحتاج إلى شيء واضح:</p>
-                    <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
-                        <li><span style="color: var(--text-main);">مسار محدد للماء.</span></li>
-                        <li><span style="color: var(--text-main);">فرق ضغط قابل للقياس.</span></li>
-                        <li><span style="color: var(--text-main);">آلية لتحويل الحركة أو الضغط إلى طاقة.</span></li>
-                        <li><span style="color: var(--text-main);">ومخرج يمكن من خلاله استخدام الطاقة الناتجة.</span></li>
-                    </ul>
-                    <p>وهذه النقطة تحديدًا تمثل تحديًا كبيرًا لأي نظرية تقول إن الهرم كان محطة طاقة كاملة.</p>
-                    <span class="highlight">فالاختراع ليس مجرد وجود ظاهرة فيزيائية. الاختراع هو تحويل الظاهرة إلى نظام يعمل.</span>
-                `
-            },
-            {
-                title: "الفصل الثامن",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">تسلا والأهرامات</h3>
-                    <p>عندما نصل إلى اسم نيكولا تسلا، يظهر سؤال مثير.</p>
-                    <p>تسلا كان أحد أهم الشخصيات في تاريخ الكهرباء الحديثة. ساهم في تطوير أنظمة التيار المتردد، وطوّر المحرك الحثي متعدد الأطوار، وأجرى تجارب على نقل الطاقة لاسلكيًا. وتوثق مصادر IEEE دوره في تطوير محرك التيار المتردد وتقنيات أنظمة القدرة الكهربائية.</p>
-                    <p>إذن هناك تشابه واضح في فكرة الطاقة ونقلها دون الاعتماد الكامل على الأسلاك التقليدية.</p>
-                    <p>لكن هل كان تسلا يقلد المصريين القدماء؟ هنا يجب أن نكون صريحين.</p>
-                    <p>لا نملك دليلًا تاريخيًا موثوقًا يثبت أن تسلا درس الهرم الأكبر ثم أعاد بناء فكرته. ومن الخطأ أن نحول هذا التشابه إلى حقيقة تاريخية.</p>
-                    <span class="highlight">لكن يمكننا طرح سؤال مختلف: لماذا عاد تسلا نفسه إلى فكرة نقل الطاقة عبر الهواء والفضاء؟ ولماذا ظلت فكرة الطاقة اللاسلكية حلمًا هندسيًا كبيرًا حتى العصر الحديث؟</span>
-                    <p>ربما لأن الطاقة لا تحتاج دائمًا إلى الصورة التي تعودنا عليها. وربما لأن هناك طرقًا فيزيائية متعددة للتفاعل معها. لكن الانتقال من هذا السؤال إلى القول بأن المصريين القدماء سبقوا تسلا بأكثر من أربعة آلاف عام يحتاج إلى أدلة إضافية.</p>
-                `
-            },
-            {
-                title: "الفصل التاسع",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الآية التي دفعتني إلى التفكير</h3>
-                    <p>يقول الله تعالى:</p>
-                    <span class="highlight" style="font-size: 1.8rem; line-height: 1.6; color: var(--gold-primary); text-shadow: 1px 1px 2px #000;">
-                        ﴿كَالَّذِينَ مِن قَبْلِكُمْ كَانُوا أَشَدَّ مِنكُمْ قُوَّةً وَأَكْثَرَ أَمْوَالًا وَأَوْلَادًا فَاسْتَمْتَعُوا بِخَلَاقِهِمْ...﴾
-                    </span>
-                    <p style="text-align: center; margin-top: -20px; font-size: 1rem; color: var(--text-muted);">سورة التوبة، الآية 69.</p>
-                    <p>الآية تتحدث عن أقوام سابقين كانوا أشد قوة وأكثر مالًا وأولادًا، ثم تحذر من المصير الذي انتهوا إليه. ومن الممكن للباحث أن يتأمل في عظمة الحضارات السابقة وقدرتها وما بلغته من قوة وعمران.</p>
-                    <p>لكن لا يصح أن نقول إن الآية تثبت تحديدًا أن المصريين القدماء كانوا يمتلكون مولدات كهربائية. فالآية نفسها لا تذكر الكهرباء ولا الهرم ولا تقنية معينة، والتفاسير المعروفة تشرح «أشد قوة» في سياق القوة والقدرة والتمكن وما ارتبط بذلك، لا باعتبارها نصًا تقنيًا عن الكهرباء.</p>
-                    <p>وهذا لا يقلل من قيمة الآية. بل يجعل استخدامها أكثر احترامًا: النص القرآني يقدم تذكيرًا بعظمة أقوام سبقونا، أما إثبات وظيفة الهرم فيحتاج إلى الدليل الأثري والفيزيائي.</p>
-                `
-            },
-            {
-                title: "الفصل العاشر",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">أكبر سؤال: لماذا هذا التصميم؟</h3>
-                    <p>الهرم الأكبر ليس مجرد كومة من الحجارة. إنه مشروع هندسي هائل. داخله ممرات معقدة. وغرف. ومعرض كبير. وحجرات جرانيتية. وفضاءات داخلية ما زال بعضها مجهول الوظيفة. وفوق ذلك كله، اكتشف العلم الحديث فراغًا ضخمًا لم نكن نعرف بوجوده.</p>
-                    <p>لذلك يمكننا أن نسأل: لو كان الهدف الوحيد هو وضع جثمان ملك داخل مبنى حجري، فلماذا وصل التصميم إلى هذا المستوى من التعقيد؟</p>
-                    <p>الرأي التقليدي يملك إجابات؛ فالأهرامات كانت جزءًا من منظومة الملك والدفن والدين والعبادة في مصر القديمة. والمتاحف والمؤسسات الأثرية تمتلك أدلة قوية على هذه العلاقة.</p>
-                    <span class="highlight">لكن السؤال الذي يطرح نفسه في هذا الكتاب هو: هل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة؟</span>
-                    <p>وهذه نقطة مختلفة تمامًا. فالمنشأة يمكن نظريًا أن تحمل أكثر من وظيفة. قد تكون رمزًا دينيًا. وقد تكون قبرًا. وقد تكون مركزًا لطقوس. وقد تكون أيضًا مبنية وفق مبادئ هندسية لها وظائف أخرى. لكن كل وظيفة إضافية تحتاج إلى دليل إضافي.</p>
-                `
-            },
-            {
-                title: "الفصل الحادي عشر",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">لماذا لا يكفي أن نقول «إنها مقبرة»؟</h3>
-                    <p>عندما يقال إن الهرم «مقبرة»، قد يشعر القارئ أن السؤال انتهى.</p>
-                    <p>لكن كلمة «مقبرة» تجيب عن سؤال واحد فقط: لمن بُني؟</p>
-                    <p>ولا تجيب بالضرورة عن:</p>
-                    <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
-                        <li><span style="color: var(--text-main);">لماذا اتخذ هذا الشكل تحديدًا؟</span></li>
-                        <li><span style="color: var(--text-main);">ما الوظيفة الدقيقة لكل فراغ؟</span></li>
-                        <li><span style="color: var(--text-main);">لماذا صممت هذه الممرات؟</span></li>
-                        <li><span style="color: var(--text-main);">لماذا اختيرت هذه المواد؟</span></li>
-                        <li><span style="color: var(--text-main);">لماذا وضعت الحجرات في هذه المستويات؟</span></li>
-                        <li><span style="color: var(--text-main);">ولماذا بقيت أجزاء من تصميمه مجهولة؟</span></li>
-                    </ul>
-                    <span class="highlight">في العلم، لا تكفي إجابة جزئية عندما تكون الأسئلة الأخرى ما زالت قائمة. ومن هنا جاءت فكرة هذا الكتاب.</span>
-                `
-            },
-            {
-                title: "الفصل الثاني عشر",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">نظرية الهرم كمحطة طاقة</h3>
-                    <p>الآن يمكننا صياغة النظرية في أبسط صورة:</p>
-                    <div style="background: rgba(212, 175, 55, 0.1); border-right: 4px solid var(--gold-primary); padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <span class="highlight" style="margin: 0; text-align: right;">ربما صُمم الهرم الأكبر ليجمع أو يحول أو يركز أشكالًا من الطاقة الطبيعية من خلال هندسته ومواده وموقعه، وربما كانت هذه الطاقة مرتبطة بالمجال الكهرومغناطيسي والاهتزاز والضغط والحركة والبيئة المحيطة.</span>
-                    </div>
-                    <p>هذه هي الفكرة المركزية.</p>
-                    <p>لكن حتى تصبح «حقيقة علمية» نحتاج إلى إثبات سلسلة كاملة: مصدر للطاقة، ثم آلية لالتقاطها، ثم آلية لتحويلها، ثم آلية لتوجيهها، ثم آثار مادية تدل على أن النظام كان يعمل، ثم دليل أثري على أن المصريين قصدوا استخدامه بهذه الطريقة.</p>
-                    <p>بدون هذه السلسلة، تظل النظرية فرضية قوية ومثيرة للاختبار، وليست حقيقة مثبتة.</p>
-                `
-            },
-            {
-                title: "الفصل الثالث عشر",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">ما الذي نستطيع إثباته فعلًا؟</h3>
-                    <p>بعد كل ما سبق يمكننا تقسيم المعلومات إلى ثلاث طبقات.</p>
-                    
-                    <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الأولى: حقائق أثرية</h4>
-                    <p>الهرم الأكبر مرتبط بالملك خوفو. هناك مجمع جنائزي ضخم حوله. هناك تابوت حجري في حجرة الملك. هناك معابد وحفر مراكب ومنشآت مرتبطة بالمجمع الملكي. وهناك فراغ داخلي كبير اكتشفته تقنيات الميون.</p>
-                    
-                    <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الثانية: حقائق علمية</h4>
-                    <p>الحجر والمواد والفراغات والهندسة يمكن دراستها فيزيائيًا. والعلم الحديث يستطيع قياس خصائص الهرم والتقاط صور لبنيته الداخلية باستخدام تقنيات حديثة.</p>
-                    
-                    <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الثالثة: فرضية هذا الكتاب</h4>
-                    <p>أن تصميم الهرم قد يكون مرتبطًا بمنظومة لتوليد أو تحويل أو نقل الطاقة. وهذه هي المنطقة التي يجب أن نبحث فيها.</p>
-                `
-            },
-            {
-                title: "الخاتمة",
-                content: `
-                    <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">ربما كان السر في السؤال نفسه</h3>
-                    <p>ربما لن يكون أعظم اكتشاف متعلق بالأهرامات هو العثور على غرفة أخرى. ربما يكون أعظم اكتشاف هو أن السؤال الذي ظللنا نطرحه لآلاف السنين كان سؤالًا خاطئًا.</p>
-                    <span class="highlight">بدلًا من: «أين دُفن الملك؟»<br>ربما يجب أن نسأل: «ماذا كان هذا المبنى يفعل؟»</span>
-                    <p>الهرم الأكبر يقف أمامنا منذ آلاف السنين. وما زالت داخله أسرار. وما زالت تقنيات حديثة، مثل تصوير الميونات، تكشف لنا أن معرفتنا ببنيته ليست كاملة.</p>
-                    <p>قد تكون نظرية الهرم كمحطة طاقة صحيحة. وقد تكون خاطئة. وقد يكون الهرم قد جمع بين وظائف متعددة لم نفهمها بعد. لكن الشيء المؤكد هو أن البحث لم ينتهِ.</p>
-                    <p>ولهذا لا أريد أن يكون هذا الكتاب خاتمة الحديث عن الأهرامات. بل أريده أن يكون بداية سؤال جديد: هل بنى المصري القديم الهرم ليُدفن فيه فقط… أم أنه كان يبني شيئًا لم نفهم وظيفته الحقيقية حتى الآن؟</p>
-                    <p style="text-align: center; font-weight: bold; margin-top: 2rem;">وربما، بعد آلاف السنين، يكون السر ما زال موجودًا أمام أعيننا. فوق الرمال. بين الحجارة. داخل الهرم. ينتظر فقط من يسأل السؤال الصحيح.</p>
-                `
-            },
-            {
-                title: "ملاحظة ومصادر",
-                content: `
-                    <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; border-bottom: 2px solid var(--gold-primary); padding-bottom: 10px;">ملاحظة المؤلف</h4>
-                    <p style="font-size: 1.1rem;">هذا الكتاب يميز عمدًا بين المعلومات الأثرية الموثقة وبين الاستنتاجات والنظريات التي تحتاج إلى مزيد من البحث. فوجود مجمع جنائزي حول أهرامات الجيزة دليل مهم لصالح التفسير الجنائزي التقليدي، بينما وجود فراغات مجهولة الوظيفة لا يثبت وحده نظرية الطاقة. وبالمثل، فإن الخصائص الفيزيائية للمواد والهندسة لا تكفي وحدها لإثبات أن الهرم كان مولدًا كهربائيًا.</p>
-                        <li>The Metropolitan Museum of Art, Egypt in the Old Kingdom.</li>
-                        <li>IEEE، مصادر عن نيكولا تسلا وأنظمة التيار المتردد والمحرك الحثي ونقل الطاقة.</li>
-                        <li>سورة التوبة، الآية 69، وتفاسيرها.</li>
-                    </ul>
-                    
-                    <div style="margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 2px dashed rgba(212, 175, 55, 0.5); position: relative;">
-                        <!-- أيقونة ريشة كلاسيكية تتوسط الخط -->
-                        <i class="fas fa-feather-alt" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--gold-primary); background: transparent; padding: 0 15px;"></i>
+        // ==================== بيانات الكتاب ====================
+        const bookData = [{
+            isCover: true,
+            content: ``
+        }, {
+            title: "سر الأهرامات",
+            content: `
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <span class="highlight" style="font-size: 2rem; margin-bottom: 2rem;">هل كان الهرم الأكبر مقبرة…<br>أم آلة هندسية للطاقة؟</span>
+                            <p style="text-align: center; color: var(--text-muted); font-size: 1.1rem;">تأليف وإعداد: بحث شامل في وظيفة الأهرامات</p>
+                        </div>
+                    `
+        }, {
+            title: "مقدمة",
+            content: `
+                        <p>منذ آلاف السنين يقف الهرم الأكبر في هضبة الجيزة كأنه رسالة تركها أصحابها للعالم، ثم أُغلقت أبوابها واختفت مفاتيحها.</p>
+                        <p>نعرف اسم الملك الذي ارتبط به الهرم: خوفو. ونعرف أن المصريين القدماء بنوا مجمعًا ضخمًا حوله، ونعرف أن الهرم أحد أعظم الإنجازات الهندسية في العالم القديم. لكن السؤال الذي يثير الجدل يبدأ من هنا:</p>
+                        <span class="highlight">هل فهمنا فعلًا الوظيفة الأصلية للهرم الأكبر؟</span>
+                        <p>الرواية التقليدية تعتبر الهرم مقبرة ملكية. وهذا هو التفسير الرسمي السائد اليوم؛ فوزارة السياحة والآثار المصرية تصف الهرم الأكبر بأنه مقبرة الملك خوفو، وتذكر وجود تابوت حجري في حجرة الملك. كما أن مجمعات الجيزة ترتبط بمنشآت جنائزية ومعابد ومراكب ملكية.</p>
+                        <p>لكن داخل هذه القصة توجد أسئلة لا يمكن تجاهلها:</p>
+                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
+                            <li><span style="color: var(--text-main);">لماذا بُني الهرم بهذا التعقيد الهندسي الهائل؟</span></li>
+                            <li><span style="color: var(--text-main);">لماذا يحتوي على ممرات وغرف وفراغات لا نعرف وظيفة بعضها حتى اليوم؟</span></li>
+                            <li><span style="color: var(--text-main);">لماذا ظلّت أجزاء من بنيته الداخلية مجهولة حتى العصر الحديث؟</span></li>
+                            <li><span style="color: var(--text-main);">ولماذا ظهر في عام 2017 اكتشاف علمي لفراغ داخلي ضخم، ولم يتمكن الباحثون حتى الآن من تحديد وظيفته؟</span></li>
+                        </ul>
+                        <p>هذا الكتاب لا يطلب من القارئ أن يصدق كل شيء بلا دليل. بل يفعل العكس. إنه يعيد النظر في الهرم من زاوية مختلفة، ويسأل:</p>
+                        <span class="highlight">ماذا لو كان ما نراه اليوم ليس قبرًا ضخمًا فقط، بل جزءًا من منظومة هندسية أكثر تعقيدًا؟</span>
+                        <p style="text-align: center; font-weight: bold;">وهنا تبدأ رحلة البحث عن السر.</p>
+                    `
+        }, {
+            title: "الفصل الأول",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الهرم الذي لا يشبه ما نتوقعه من قبر</h3>
+                        <p>عندما نفكر في مقبرة ملكية، نتوقع عادةً أن نجد شيئًا يعرّفنا بصاحب القبر: كتابات، أسماء، مشاهد، طقوس، تماثيل، مقتنيات، أو على الأقل بقايا دفن واضحة.</p>
+                        <p>والحضارة المصرية نفسها تركت لنا أمثلة كثيرة على هذا النوع من العمارة الجنائزية. في المقابر الملكية والأرستقراطية نجد نصوصًا ورسومات ومناظر وقرابين وتماثيل، وكان العالم الآخر عنصرًا أساسيًا في الفن الجنائزي المصري.</p>
+                        <p>لكن الهرم الأكبر مختلف.</p>
+                        <p>ليس المقصود أنه خالٍ تمامًا من أي كتابة؛ فهذا غير صحيح. توجد داخله علامات وكتابات عمالية، كما توجد منشآت جنائزية مرتبطة به خارج جسم الهرم. لكن الهرم الأكبر يفتقد شيئًا مهمًا ظهر لاحقًا بصورة واضحة: نصوص الأهرام الجنائزية المنقوشة داخل الحجرات الداخلية.</p>
+                        <p>أقدم مثال معروف لنصوص الأهرام هو هرم الملك أوناس في سقارة، من الأسرة الخامسة، أي بعد عصر أهرامات الجيزة.</p>
+                        <span class="highlight">إذا كانت النصوص الجنائزية ستصبح لاحقًا جزءًا مهمًا من الأهرامات الملكية، فلماذا لا نجدها في هرم خوفو؟ هل هذا دليل على أن الهرم لم يكن مقبرة؟</span>
+                        <p>ليس بالضرورة. لكنه بالتأكيد سؤال يستحق الدراسة.</p>
+                    `
+        }, {
+            title: "الفصل الثاني",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">أين جثمان الملك؟</h3>
+                        <p>واحدة من أكثر النقاط إثارة في قضية الهرم الأكبر هي أن مومياء خوفو نفسها لم تُكتشف داخله.</p>
+                        <p>عندما يدخل الزائر اليوم إلى حجرة الملك، يجد التابوت الحجري، لكنه لا يجد الملك. هنا يجب أن نكون دقيقين.</p>
+                        <p>غياب المومياء ليس دليلًا قاطعًا على أن الهرم لم يكن مقبرة. فالمقبرة القديمة يمكن أن تُنهب، ويمكن أن تختفي محتوياتها عبر آلاف السنين. لكن في المقابل، عدم العثور على الجثمان يمنعنا أيضًا من استخدام المومياء باعتبارها الدليل المباشر الذي يحسم المسألة.</p>
+                        <span class="highlight">إذن نحن أمام سؤال مفتوح:<br>هل كان التابوت جزءًا من دفن ملكي فعلًا؟ أم أن له وظيفة أخرى داخل تصميم أكبر؟</span>
+                        <p>والسؤال يصبح أكثر إثارة عندما ننظر إلى الهرم باعتباره مبنى كاملًا، بدلًا من التركيز على الحجرة وحدها.</p>
+                        <p>فالهرم لم يكن مبنى منفردًا في الصحراء. كان مركزًا لمجمع ضخم يضم معابد وممرًا صاعدًا ومنشآت أخرى ومراكب مرتبطة بالملك. وزارة السياحة والآثار المصرية توضح أن مجمعات الجيزة كانت تتكون من الهرم والمعابد والممرات وحفر المراكب، وأن الهرم كان جزءًا من منظومة ملكية كاملة.</p>
+                        <p>وهنا تظهر مفارقة: الهرم نفسه شديد البساطة مقارنةً بالمنظومة المحيطة به.</p>
+                    `
+        }, {
+            title: "الفصل الثالث",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الهرم والعلوم التي لم نكن نعرفها عنه</h3>
+                        <p>من أكثر الأخطاء شيوعًا أن نتعامل مع الهرم وكأن العلماء عرفوا بالفعل كل ما بداخله. الحقيقة مختلفة.</p>
+                        <p>في سنة 2017 نشر فريق دولي بحثًا في مجلة Nature أعلن فيه اكتشاف فراغ داخلي كبير في الهرم الأكبر باستخدام جسيمات الميون القادمة من الأشعة الكونية. الفراغ أطلق عليه الباحثون اسم Big Void.</p>
+                        <p>قدرت الدراسة أن طوله الأدنى يزيد على 30 مترًا، وأن مقطعه قريب من مقطع المعرض الكبير، وتم تأكيد وجوده بثلاث تقنيات مختلفة للكشف عن الميونات وتحليل مستقل. والأهم أن الباحثين أعلنوا صراحة أن وظيفة هذا الفراغ غير معروفة حتى الآن.</p>
+                        <p>تأمل هذه النقطة. الهرم عمره أكثر من أربعة آلاف عام. ومع ذلك احتاج الإنسان الحديث إلى فيزياء الجسيمات والأشعة الكونية كي يكتشف بنية كبيرة داخله.</p>
+                        <span class="highlight">هذا لا يثبت أن الهرم كان محطة طاقة. لكنّه يثبت شيئًا مهمًا: أن معرفتنا بالبنية الداخلية للهرم ليست مكتملة.</span>
+                        <p>وهذه الحقيقة وحدها تجعل الأسئلة الجديدة مشروعة.</p>
+                    `
+        }, {
+            title: "الفصل الرابع",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">من الحجر إلى الطاقة</h3>
+                        <p>هنا نصل إلى الفكرة التي يقوم عليها هذا الكتاب.</p>
+                        <span class="highlight">ماذا لو لم يكن السؤال الحقيقي: كيف بنى المصريون الهرم؟ بل: لماذا صمم المصريون الهرم بهذه الطريقة أصلًا؟</span>
+                        <p>عندما ننظر إلى مبنى ضخم من الحجر، يمكننا أن نراه باعتباره عمارة. لكن يمكن للهندسة نفسها أن تؤدي وظائف أخرى. الحجر يمكن أن يخزن الحرارة. المواد المختلفة يمكن أن تتفاعل كهربائيًا وكيميائيًا. الأجسام ذات الأشكال الهندسية المحددة يمكن أن تتفاعل مع الموجات الكهرومغناطيسية. والفراغات يمكن أن تؤثر في السلوك الفيزيائي للموجات داخل المنشآت.</p>
+                        <p>وفي العصر الحديث، نعرف أن الطاقة يمكن نقلها واستحثاثها وتبادلها بطرق لا تعتمد دائمًا على الأسلاك المباشرة.</p>
+                        <p>لكن من هنا يجب أن نفصل بين حقيقتين:</p>
+                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
+                            <li><span style="color: var(--text-main);">الحقيقة الأولى: الفيزياء الحديثة تسمح بدراسة الهرم كنظام يمكن أن يتفاعل مع الطاقة والمجالات الكهرومغناطيسية.</span></li>
+                            <li><span style="color: var(--text-main);">الحقيقة الثانية: هذا لا يثبت أن المصريين القدماء استخدموا الهرم فعلًا كمولد كهرباء.</span></li>
+                        </ul>
+                        <p style="text-align: center; font-weight: bold;">وهنا تبدأ فرضية الكتاب.</p>
+                    `
+        }, {
+            title: "الفصل الخامس",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">هل الهرم يستطيع التفاعل مع الطاقة الكهرومغناطيسية؟</h3>
+                        <p>في الأبحاث الحديثة، دُرست الخصائص الكهرومغناطيسية لنماذج هندسية للهرم الأكبر، بما في ذلك كيفية تفاعل البنية مع المجالات والموجات الكهرومغناطيسية.</p>
+                        <p>هذه الدراسات لا تقول إن المصريين القدماء كانوا يولدون الكهرباء داخل الهرم. لكنها تفتح بابًا فيزيائيًا مهمًا: شكل الهرم ليس مجرد شكل جميل.</p>
+                        <p>فالهندسة يمكن أن تؤثر على تركيز وتوزيع الحقول والموجات. وعندما نتحدث عن الطاقة، يجب ألا نقصر تفكيرنا على الكهرباء التي نراها في الأسلاك الحديثة.</p>
+                        <p>الطاقة موجودة بأشكال متعددة: حرارية، كيميائية، ميكانيكية، كهربائية، وكهرومغناطيسية. ويمكن تحويل أحد أشكالها إلى الآخر.</p>
+                        <span class="highlight">لهذا فإن السؤال العلمي الذي يجب أن نطرحه ليس: «هل الهرم سحر؟»<br><br>بل: هل كانت هندسة الهرم مصممة لاستغلال ظاهرة فيزيائية محددة؟</span>
+                        <p>وهذا سؤال يمكن اختباره.</p>
+                    `
+        }, {
+            title: "الفصل السادس",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الجرانيت والكوارتز: هل توجد وظيفة تتجاوز البناء؟</h3>
+                        <p>من أكثر الأشياء التي تستحق الدراسة في الهرم استخدام مواد مختلفة في أجزاء مختلفة من بنيته.</p>
+                        <p>حجرة الملك، على سبيل المثال، تحتوي على كتل ضخمة من الجرانيت. والجرانيت يحتوي طبيعيًا على معادن مختلفة، من بينها الكوارتز. الكوارتز معروف علميًا بخصائصه الكهروضغطية؛ أي أن الضغط الميكانيكي على بلورات معينة من الكوارتز يمكن أن يرتبط بتوليد فرق جهد كهربائي، والعكس في بعض التطبيقات.</p>
+                        <p>لكن هنا يجب أن نتوقف.</p>
+                        <p>وجود الكوارتز في الجرانيت لا يعني أن الهرم كان بطارية. ولا يعني أن الضغط الناتج عن وزن الأحجار كان كافيًا لإنتاج كهرباء يمكن استخدامها عمليًا. هذا النوع من الكلام يحتاج إلى تجربة وقياس، وليس إلى تشابهات فقط.</p>
+                        <span class="highlight">ولهذا فإن السؤال الأكثر أهمية هو: هل توجد في الهرم منظومة كاملة من المواد والهندسة والظروف الفيزيائية تسمح بتحويل طاقة طبيعية إلى طاقة قابلة للاستخدام؟</span>
+                        <p>حتى الآن، لا توجد أدلة أثرية حاسمة تثبت ذلك. لكنها واحدة من الفرضيات التي تستحق الاختبار بدلًا من ترديدها بلا تحليل.</p>
+                    `
+        }, {
+            title: "الفصل السابع",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الماء… الحلقة المفقودة؟</h3>
+                        <p>يذهب بعض أصحاب نظرية «محطة الطاقة» إلى أن الماء كان عنصرًا أساسيًا في منظومة الهرم.</p>
+                        <p>الفكرة تقوم على أن الماء يمكن أن يؤدي دورًا مهمًا في بعض الأنظمة الفيزيائية: من نقل الحرارة إلى التأثير في الضغط والتدفق والخواص الكهربائية.</p>
+                        <p>لكن مجرد وجود الماء في البيئة المحيطة بالجيزة لا يكفي لإثبات وجود نظام لتوليد الطاقة. حتى يتحول الكلام إلى علم، نحتاج إلى شيء واضح:</p>
+                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
+                            <li><span style="color: var(--text-main);">مسار محدد للماء.</span></li>
+                            <li><span style="color: var(--text-main);">فرق ضغط قابل للقياس.</span></li>
+                            <li><span style="color: var(--text-main);">آلية لتحويل الحركة أو الضغط إلى طاقة.</span></li>
+                            <li><span style="color: var(--text-main);">ومخرج يمكن من خلاله استخدام الطاقة الناتجة.</span></li>
+                        </ul>
+                        <p>وهذه النقطة تحديدًا تمثل تحديًا كبيرًا لأي نظرية تقول إن الهرم كان محطة طاقة كاملة.</p>
+                        <span class="highlight">فالاختراع ليس مجرد وجود ظاهرة فيزيائية. الاختراع هو تحويل الظاهرة إلى نظام يعمل.</span>
+                    `
+        }, {
+            title: "الفصل الثامن",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">تسلا والأهرامات</h3>
+                        <p>عندما نصل إلى اسم نيكولا تسلا، يظهر سؤال مثير.</p>
+                        <p>تسلا كان أحد أهم الشخصيات في تاريخ الكهرباء الحديثة. ساهم في تطوير أنظمة التيار المتردد، وطوّر المحرك الحثي متعدد الأطوار، وأجرى تجارب على نقل الطاقة لاسلكيًا. وتوثق مصادر IEEE دوره في تطوير محرك التيار المتردد وتقنيات أنظمة القدرة الكهربائية.</p>
+                        <p>إذن هناك تشابه واضح في فكرة الطاقة ونقلها دون الاعتماد الكامل على الأسلاك التقليدية.</p>
+                        <p>لكن هل كان تسلا يقلد المصريين القدماء؟ هنا يجب أن نكون صريحين.</p>
+                        <p>لا نملك دليلًا تاريخيًا موثوقًا يثبت أن تسلا درس الهرم الأكبر ثم أعاد بناء فكرته. ومن الخطأ أن نحول هذا التشابه إلى حقيقة تاريخية.</p>
+                        <span class="highlight">لكن يمكننا طرح سؤال مختلف: لماذا عاد تسلا نفسه إلى فكرة نقل الطاقة عبر الهواء والفضاء؟ ولماذا ظلت فكرة الطاقة اللاسلكية حلمًا هندسيًا كبيرًا حتى العصر الحديث؟</span>
+                        <p>ربما لأن الطاقة لا تحتاج دائمًا إلى الصورة التي تعودنا عليها. وربما لأن هناك طرقًا فيزيائية متعددة للتفاعل معها. لكن الانتقال من هذا السؤال إلى القول بأن المصريين القدماء سبقوا تسلا بأكثر من أربعة آلاف عام يحتاج إلى أدلة إضافية.</p>
+                    `
+        }, {
+            title: "الفصل التاسع",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">الآية التي دفعتني إلى التفكير</h3>
+                        <p>يقول الله تعالى:</p>
+                        <span class="highlight" style="font-size: 1.8rem; line-height: 1.6; color: var(--gold-primary); text-shadow: 1px 1px 2px #000;">
+                            ﴿كَالَّذِينَ مِن قَبْلِكُمْ كَانُوا أَشَدَّ مِنكُمْ قُوَّةً وَأَكْثَرَ أَمْوَالًا وَأَوْلَادًا فَاسْتَمْتَعُوا بِخَلَاقِهِمْ...﴾
+                        </span>
+                        <p style="text-align: center; margin-top: -20px; font-size: 1rem; color: var(--text-muted);">سورة التوبة، الآية 69.</p>
+                        <p>الآية تتحدث عن أقوام سابقين كانوا أشد قوة وأكثر مالًا وأولادًا، ثم تحذر من المصير الذي انتهوا إليه. ومن الممكن للباحث أن يتأمل في عظمة الحضارات السابقة وقدرتها وما بلغته من قوة وعمران.</p>
+                        <p>لكن لا يصح أن نقول إن الآية تثبت تحديدًا أن المصريين القدماء كانوا يمتلكون مولدات كهربائية. فالآية نفسها لا تذكر الكهرباء ولا الهرم ولا تقنية معينة، والتفاسير المعروفة تشرح «أشد قوة» في سياق القوة والقدرة والتمكن وما ارتبط بذلك، لا باعتبارها نصًا تقنيًا عن الكهرباء.</p>
+                        <p>وهذا لا يقلل من قيمة الآية. بل يجعل استخدامها أكثر احترامًا: النص القرآني يقدم تذكيرًا بعظمة أقوام سبقونا، أما إثبات وظيفة الهرم فيحتاج إلى الدليل الأثري والفيزيائي.</p>
+                    `
+        }, {
+            title: "الفصل العاشر",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">أكبر سؤال: لماذا هذا التصميم؟</h3>
+                        <p>الهرم الأكبر ليس مجرد كومة من الحجارة. إنه مشروع هندسي هائل. داخله ممرات معقدة. وغرف. ومعرض كبير. وحجرات جرانيتية. وفضاءات داخلية ما زال بعضها مجهول الوظيفة. وفوق ذلك كله، اكتشف العلم الحديث فراغًا ضخمًا لم نكن نعرف بوجوده.</p>
+                        <p>لذلك يمكننا أن نسأل: لو كان الهدف الوحيد هو وضع جثمان ملك داخل مبنى حجري، فلماذا وصل التصميم إلى هذا المستوى من التعقيد؟</p>
+                        <p>الرأي التقليدي يملك إجابات؛ فالأهرامات كانت جزءًا من منظومة الملك والدفن والدين والعبادة في مصر القديمة. والمتاحف والمؤسسات الأثرية تمتلك أدلة قوية على هذه العلاقة.</p>
+                        <span class="highlight">لكن السؤال الذي يطرح نفسه في هذا الكتاب هو: هل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة؟</span>
+                        <p>وهذه نقطة مختلفة تمامًا. فالمنشأة يمكن نظريًا أن تحمل أكثر من وظيفة. قد تكون رمزًا دينيًا. وقد تكون قبرًا. وقد تكون مركزًا لطقوس. وقد تكون أيضًا مبنية وفق مبادئ هندسية لها وظائف أخرى. لكن كل وظيفة إضافية تحتاج إلى دليل إضافي.</p>
+                    `
+        }, {
+            title: "الفصل الحادي عشر",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">لماذا لا يكفي أن نقول «إنها مقبرة»؟</h3>
+                        <p>عندما يقال إن الهرم «مقبرة»، قد يشعر القارئ أن السؤال انتهى.</p>
+                        <p>لكن كلمة «مقبرة» تجيب عن سؤال واحد فقط: لمن بُني؟</p>
+                        <p>ولا تجيب بالضرورة عن:</p>
+                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
+                            <li><span style="color: var(--text-main);">لماذا اتخذ هذا الشكل تحديدًا؟</span></li>
+                            <li><span style="color: var(--text-main);">ما الوظيفة الدقيقة لكل فراغ؟</span></li>
+                            <li><span style="color: var(--text-main);">لماذا صممت هذه الممرات؟</span></li>
+                            <li><span style="color: var(--text-main);">لماذا اختيرت هذه المواد؟</span></li>
+                            <li><span style="color: var(--text-main);">لماذا وضعت الحجرات في هذه المستويات؟</span></li>
+                            <li><span style="color: var(--text-main);">ولماذا بقيت أجزاء من تصميمه مجهولة؟</span></li>
+                        </ul>
+                        <span class="highlight">في العلم، لا تكفي إجابة جزئية عندما تكون الأسئلة الأخرى ما زالت قائمة. ومن هنا جاءت فكرة هذا الكتاب.</span>
+                    `
+        }, {
+            title: "الفصل الثاني عشر",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">نظرية الهرم كمحطة طاقة</h3>
+                        <p>الآن يمكننا صياغة النظرية في أبسط صورة:</p>
+                        <div style="background: rgba(212, 175, 55, 0.1); border-right: 4px solid var(--gold-primary); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <span class="highlight" style="margin: 0; text-align: right;">ربما صُمم الهرم الأكبر ليجمع أو يحول أو يركز أشكالًا من الطاقة الطبيعية من خلال هندسته ومواده وموقعه، وربما كانت هذه الطاقة مرتبطة بالمجال الكهرومغناطيسي والاهتزاز والضغط والحركة والبيئة المحيطة.</span>
+                        </div>
+                        <p>هذه هي الفكرة المركزية.</p>
+                        <p>لكن حتى تصبح «حقيقة علمية» نحتاج إلى إثبات سلسلة كاملة: مصدر للطاقة، ثم آلية لالتقاطها، ثم آلية لتحويلها، ثم آلية لتوجيهها، ثم آثار مادية تدل على أن النظام كان يعمل، ثم دليل أثري على أن المصريين قصدوا استخدامه بهذه الطريقة.</p>
+                        <p>بدون هذه السلسلة، تظل النظرية فرضية قوية ومثيرة للاختبار، وليست حقيقة مثبتة.</p>
+                    `
+        }, {
+            title: "الفصل الثالث عشر",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">ما الذي نستطيع إثباته فعلًا؟</h3>
+                        <p>بعد كل ما سبق يمكننا تقسيم المعلومات إلى ثلاث طبقات.</p>
                         
-                        <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 600;">تأليف وإعداد الكاتب والباحث</p>
-                        <h3 style="font-family: 'Reem Kufi', sans-serif; color: var(--gold-dark); font-size: 2.5rem; font-weight: bold; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.15);">أ. عبدالرحمن أحمد الطيب</h3>
-                    </div>
-                `
-            }
-        ];
+                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الأولى: حقائق أثرية</h4>
+                        <p>الهرم الأكبر مرتبط بالملك خوفو. هناك مجمع جنائزي ضخم حوله. هناك تابوت حجري في حجرة الملك. هناك معابد وحفر مراكب ومنشآت مرتبطة بالمجمع الملكي. وهناك فراغ داخلي كبير اكتشفته تقنيات الميون.</p>
+                        
+                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الثانية: حقائق علمية</h4>
+                        <p>الحجر والمواد والفراغات والهندسة يمكن دراستها فيزيائيًا. والعلم الحديث يستطيع قياس خصائص الهرم والتقاط صور لبنيته الداخلية باستخدام تقنيات حديثة.</p>
+                        
+                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; margin-top: 1.5rem;">الطبقة الثالثة: فرضية هذا الكتاب</h4>
+                        <p>أن تصميم الهرم قد يكون مرتبطًا بمنظومة لتوليد أو تحويل أو نقل الطاقة. وهذه هي المنطقة التي يجب أن نبحث فيها.</p>
+                    `
+        }, {
+            title: "الخاتمة",
+            content: `
+                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: 20px;">ربما كان السر في السؤال نفسه</h3>
+                        <p>ربما لن يكون أعظم اكتشاف متعلق بالأهرامات هو العثور على غرفة أخرى. ربما يكون أعظم اكتشاف هو أن السؤال الذي ظللنا نطرحه لآلاف السنين كان سؤالًا خاطئًا.</p>
+                        <span class="highlight">بدلًا من: «أين دُفن الملك؟»<br>ربما يجب أن نسأل: «ماذا كان هذا المبنى يفعل؟»</span>
+                        <p>الهرم الأكبر يقف أمامنا منذ آلاف السنين. وما زالت داخله أسرار. وما زالت تقنيات حديثة، مثل تصوير الميونات، تكشف لنا أن معرفتنا ببنيته ليست كاملة.</p>
+                        <p>قد تكون نظرية الهرم كمحطة طاقة صحيحة. وقد تكون خاطئة. وقد يكون الهرم قد جمع بين وظائف متعددة لم نفهمها بعد. لكن الشيء المؤكد هو أن البحث لم ينتهِ.</p>
+                        <p>ولهذا لا أريد أن يكون هذا الكتاب خاتمة الحديث عن الأهرامات. بل أريده أن يكون بداية سؤال جديد: هل بنى المصري القديم الهرم ليُدفن فيه فقط… أم أنه كان يبني شيئًا لم نفهم وظيفته الحقيقية حتى الآن؟</p>
+                        <p style="text-align: center; font-weight: bold; margin-top: 2rem;">وربما، بعد آلاف السنين، يكون السر ما زال موجودًا أمام أعيننا. فوق الرمال. بين الحجارة. داخل الهرم. ينتظر فقط من يسأل السؤال الصحيح.</p>
+                    `
+        }, {
+            title: "ملاحظة ومصادر",
+            content: `
+                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: 1.5rem; border-bottom: 2px solid var(--gold-primary); padding-bottom: 10px;">ملاحظة المؤلف</h4>
+                        <p style="font-size: 1.1rem;">هذا الكتاب يميز عمدًا بين المعلومات الأثرية الموثقة وبين الاستنتاجات والنظريات التي تحتاج إلى مزيد من البحث. فوجود مجمع جنائزي حول أهرامات الجيزة دليل مهم لصالح التفسير الجنائزي التقليدي، بينما وجود فراغات مجهولة الوظيفة لا يثبت وحده نظرية الطاقة. وبالمثل، فإن الخصائص الفيزيائية للمواد والهندسة لا تكفي وحدها لإثبات أن الهرم كان مولدًا كهربائيًا.</p>
+                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: 2;">
+                            <li><span style="color: var(--text-main);">The Metropolitan Museum of Art, Egypt in the Old Kingdom.</span></li>
+                            <li><span style="color: var(--text-main);">IEEE، مصادر عن نيكولا تسلا وأنظمة التيار المتردد والمحرك الحثي ونقل الطاقة.</span></li>
+                            <li><span style="color: var(--text-main);">سورة التوبة، الآية 69، وتفاسيرها.</span></li>
+                        </ul>
+                        
+                        <div style="margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 2px dashed rgba(212, 175, 55, 0.5); position: relative;">
+                            <i class="fas fa-feather-alt" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--gold-primary); background: transparent; padding: 0 15px;"></i>
+                            
+                            <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 600;">تأليف وإعداد الكاتب والباحث</p>
+                            <h3 style="font-family: 'Reem Kufi', sans-serif; color: var(--gold-dark); font-size: 2.5rem; font-weight: bold; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.15);">أ. عبدالرحمن أحمد الطيب</h3>
+                        </div>
+                    `
+        }];
 
+        // ==================== منطق الكتاب ====================
         let currentPageIndex = 0;
         const bookElement = document.getElementById('book');
         const pageIndicator = document.getElementById('page-indicator');
@@ -609,19 +783,19 @@
             for (let i = bookData.length - 1; i >= 0; i--) {
                 const data = bookData[i];
                 const pageDiv = document.createElement('div');
-                
+
                 if (data.isCover) {
                     pageDiv.className = `page cover`;
                 } else {
                     pageDiv.className = `page`;
                     pageDiv.innerHTML = `
-                        <div class="page-content book-text">
-                            <h2 class="chapter-title">${data.title}</h2>
-                            ${data.content}
-                        </div>
-                    `;
+                                <div class="page-content book-text">
+                                    <h2 class="chapter-title">${data.title}</h2>
+                                    ${data.content}
+                                </div>
+                            `;
                 }
-                
+
                 pageDiv.id = `page-${i}`;
                 pageDiv.style.zIndex = bookData.length - i;
                 bookElement.appendChild(pageDiv);
@@ -650,7 +824,7 @@
         function updateButtons() {
             document.getElementById('prev-btn').disabled = currentPageIndex === 0;
             document.getElementById('next-btn').disabled = currentPageIndex === bookData.length - 1;
-            
+
             if (currentPageIndex === 0) {
                 pageIndicator.innerText = "الغلاف";
                 document.getElementById('next-btn').innerHTML = 'افتح الكتاب <i class="fas fa-book-open"></i>';
@@ -660,30 +834,27 @@
             }
         }
 
+        // ==================== تحميل الصفحة ====================
         window.onload = () => {
             initBook();
-            
-            // 3 ثواني لعرض الشاشة الافتتاحية بشكل سينمائي
+
+            // عرض شاشة البداية لمدة 3 ثوانٍ ثم الانتقال للكتاب
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 const appContainer = document.getElementById('app-container');
-                
-                // إخفاء الشاشة الافتتاحية
+
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-                
+
                 setTimeout(() => {
-                    // إظهار واجهة الكتاب
                     appContainer.style.display = 'flex';
-                    // استخدام timeout صغير للسماح بتطبيق الـ display قبل الـ opacity للأنيميشن
                     setTimeout(() => {
                         appContainer.style.opacity = '1';
                     }, 50);
-                }, 1500); // مدة تلاشي الشاشة الافتتاحية
-                
+                }, 1500);
             }, 3000);
         };
-
     </script>
+
 </body>
 </html>
