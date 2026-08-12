@@ -1,1046 +1,805 @@
+bash -lc cat > /mnt/data/sirr_alahramaat.html <<'EOF'
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>سر الأهرامات - النسخة المحمية</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="سر الأهرامات - كتاب إلكتروني عن أسرار الهرم الأكبر والنظرية التي تراه منظومة هندسية مرتبطة بالطاقة." />
+  <title>سر الأهرامات</title>
 
-    <!-- ===== حماية متقدمة ===== -->
-    <script>
-        // ==================== حماية الكود المتقدمة ====================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault();
-                return false; }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault();
-                return false; }
-            if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); return false; }
-            if (e.ctrlKey && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) { e.preventDefault(); return false; }
-            if (e.ctrlKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
-                const target = e.target;
-                if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && !target.isContentEditable) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-        });
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            reem: ['Reem Kufi', 'sans-serif']
+          },
+          colors: {
+            gold: '#d4af37',
+            'gold-light': '#f3e5ab',
+            'gold-dark': '#997a00',
+            'bg-dark': '#07090e',
+            paper: '#f9f4e8'
+          }
+        }
+      }
+    };
+  </script>
 
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
+  <style>
+    :root {
+      --gold-primary: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-dark: #997a00;
+      --bg-dark: #07090e;
+      --paper: #f9f4e8;
+      --text-main: #1a202c;
+      --text-muted: #4a5568;
+    }
 
-        (function detectDevTools() {
-            const startTime = new Date().getTime();
-            window.addEventListener('resize', function() {
-                const currentTime = new Date().getTime();
-                if (currentTime - startTime > 5000) {
-                    const widthDiff = window.outerWidth - window.innerWidth;
-                    const heightDiff = window.outerHeight - window.innerHeight;
-                    if (widthDiff > 160 || heightDiff > 160) { window.location.reload(); }
-                }
-            });
-        })();
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
 
-        function preventDebugging() {
-            if (window.console) {
-                const originalLog = console.log;
-                console.log = function() {
-                    const args = Array.from(arguments);
-                    if (args.some(arg => typeof arg === 'string' && arg.includes('password'))) return;
-                    originalLog.apply(console, arguments);
-                };
-            }
-        }
-        preventDebugging();
+    body {
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% 50%, #151a28 0%, var(--bg-dark) 100%);
+      font-family: 'Cairo', sans-serif;
+      overflow: hidden;
+      color: var(--gold-light);
+    }
 
-        function obfuscateSensitiveData() {
-            document.querySelectorAll('a[data-encoded]').forEach(link => {
-                if (link.getAttribute('data-encoded')) {
-                    link.href = atob(link.getAttribute('data-encoded'));
-                }
-            });
-        }
+    body.no-select, body.no-select * {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
 
-        function preventXSS() {
-            const originalCreateElement = document.createElement;
-            document.createElement = function(tagName) {
-                const element = originalCreateElement.call(document, tagName);
-                if (tagName.toLowerCase() === 'script') {
-                    Object.defineProperty(element, 'src', {
-                        set: function(value) {
-                            if (!value.startsWith('https://cdn.tailwindcss.com') &&
-                                !value.startsWith('https://fonts.googleapis.com') &&
-                                !value.startsWith('https://api.open-meteo.com')) {
-                                return;
-                            }
-                            this.setAttribute('src', value);
-                        }
-                    });
-                }
-                return element;
-            };
-        }
-        preventXSS();
+    input, textarea, [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+    }
 
-        function addDigitalWatermark() {
-            const watermark = document.createElement('div');
-            watermark.id = 'digital-watermark';
-            watermark.style.cssText = `
-                        position: fixed; bottom: 5px; right: 5px; color: rgba(212, 175, 55, 0.15);
-                        font-size: 8px; font-family: monospace; pointer-events: none; z-index: 9999; user-select: none;
-                    `;
-            watermark.textContent = '© سر الأهرامات | ' + new Date().getFullYear() + ' | جميع الحقوق محفوظة';
-            document.body.appendChild(watermark);
-        }
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
 
-        function protectImages() {
-            document.querySelectorAll('img').forEach(img => {
-                img.addEventListener('contextmenu', e => e.preventDefault());
-                img.addEventListener('copy', e => e.preventDefault());
-            });
-        }
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 1.2s ease, visibility 1.2s;
+      overflow: hidden;
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            obfuscateSensitiveData();
-            addDigitalWatermark();
-            protectImages();
-        });
+    .splash-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png');
+      background-size: cover;
+      background-position: center;
+      opacity: .16;
+      animation: pulse-bg 4s infinite alternate;
+    }
 
-        // تكوين Tailwind (اختياري)
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        reem: ['Reem Kufi', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: '#d4af37',
-                        'gold-light': '#f3e5ab',
-                        'gold-dark': '#997a00',
-                        'bg-dark': '#07090e',
-                        paper: '#f9f4e8',
-                    }
-                }
-            }
-        }
-    </script>
+    @media (min-width: 768px) {
+      .splash-bg { filter: blur(5px); }
+    }
 
-    <!-- ===== الخطوط والأنماط ===== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <script src="https://cdn.tailwindcss.com">
-    </script>
+    .splash-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, transparent 15%, rgba(0,0,0,.75) 95%);
+    }
 
-    <style>
-        /* ===== حماية ===== */
-        * {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+    .splash-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 600px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        input,
-        textarea,
-        [contenteditable="true"] {
-            -webkit-user-select: text !important;
-            user-select: text !important;
-        }
+    .splash-image-container {
+      width: clamp(120px, 30vw, 200px);
+      height: clamp(180px, 45vw, 300px);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(212, 175, 55, .4);
+      border: 2px solid var(--gold-primary);
+      margin-bottom: clamp(1rem, 3vh, 2rem);
+      animation: float-splash 3s ease-in-out infinite;
+    }
 
-        img {
-            -webkit-user-drag: none;
-            user-drag: none;
-            pointer-events: none;
-        }
+    .splash-image { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        ::selection {
-            background: rgba(212, 175, 55, 0.3);
-            color: #fff;
-        }
+    .splash-title {
+      font-family: 'Reem Kufi', sans-serif;
+      font-size: clamp(2rem, 8vw, 4rem);
+      color: var(--gold-primary);
+      text-shadow: 0 0 20px rgba(212,175,55,.6), 2px 2px 4px #000;
+      margin: 0;
+      opacity: 0;
+      animation: fade-in-up 1s forwards .5s;
+      line-height: 1.2;
+    }
 
-        /* ===== أنماط التصميم الأساسية ===== */
-        :root {
-            --gold-primary: #d4af37;
-            --gold-light: #f3e5ab;
-            --gold-dark: #997a00;
-            --bg-dark: #07090e;
-            --paper: #f9f4e8;
-            --text-main: #1a202c;
-            --text-muted: #4a5568;
-        }
+    .splash-subtitle {
+      font-size: clamp(.9rem, 2.5vw, 1.2rem);
+      color: var(--gold-light);
+      margin-top: .5rem;
+      opacity: 0;
+      animation: fade-in-up 1s forwards 1s;
+    }
 
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at 50% 50%, #151a28 0%, var(--bg-dark) 100%);
-            font-family: 'Cairo', sans-serif;
-            overflow: hidden;
-            color: var(--gold-light);
-        }
+    @keyframes pulse-bg { from { transform: scale(1); } to { transform: scale(1.05); } }
+    @keyframes float-splash {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); box-shadow: 0 15px 50px rgba(212,175,55,.55); }
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        #splash-screen {
-            position: fixed;
-            inset: 0;
-            background-color: var(--bg-dark);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity 1.5s ease-in-out, visibility 1.5s;
-        }
+    #app-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      perspective: 2000px;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      padding: clamp(.5rem, 2vh, 1.5rem);
+    }
 
-        .splash-bg {
-            position: absolute;
-            inset: 0;
-            background-image: url('https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.15;
-            /* إزالة الفلتر على الهواتف لتخفيف الحمل */
-            filter: none;
-            animation: pulse-bg 4s infinite alternate;
-            will-change: transform;
-        }
+    .book-wrapper {
+      position: relative;
+      width: clamp(300px, 90vw, 650px);
+      height: clamp(400px, 80vh, 850px);
+      max-height: 90vh;
+      flex-shrink: 0;
+      border-radius: 5px 20px 20px 5px;
+      background: var(--bg-dark);
+      box-shadow: 25px 25px 50px rgba(0,0,0,.8), -10px 0 20px rgba(0,0,0,.5) inset;
+    }
 
-        /* للشاشات الكبيرة فقط نطبق الضبابية */
-        @media (min-width: 768px) {
-            .splash-bg {
-                filter: blur(5px);
-            }
-        }
+    #book { position: relative; width: 100%; height: 100%; }
 
-        .splash-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 1.5rem;
-            width: 100%;
-            max-width: 600px;
-            box-sizing: border-box;
-        }
+    .page {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--paper);
+      border-radius: 5px 15px 15px 5px;
+      box-shadow: inset -5px 0 20px rgba(0,0,0,.1);
+      transform-origin: right center;
+      transition: transform 1.2s cubic-bezier(.645,.045,.355,1), opacity .8s cubic-bezier(.645,.045,.355,1);
+      transform-style: preserve-3d;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      will-change: transform, opacity;
+    }
 
-        .splash-image-container {
-            width: clamp(120px, 30vw, 200px);
-            height: clamp(180px, 45vw, 300px);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
-            border: 2px solid var(--gold-primary);
-            margin-bottom: clamp(1rem, 3vh, 2rem);
-            animation: float-splash 3s ease-in-out infinite;
-            flex-shrink: 0;
-            will-change: transform;
-        }
+    .page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='.06'/></svg>");
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .splash-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            loading: lazy;
-        }
+    .page::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 100%;
+      background: linear-gradient(to left, rgba(0,0,0,.25), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
 
-        .splash-title {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: clamp(2rem, 8vw, 4rem);
-            color: var(--gold-primary);
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 2px 2px 4px #000;
-            margin: 0;
-            opacity: 0;
-            animation: fade-in-up 1s forwards 0.5s;
-            line-height: 1.2;
-        }
+    .page.flipped { transform: rotateY(160deg) scale(.95); opacity: 0; pointer-events: none; }
 
-        .splash-subtitle {
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-            color: var(--gold-light);
-            margin-top: clamp(0.3rem, 1vh, 0.7rem);
-            opacity: 0;
-            animation: fade-in-up 1s forwards 1s;
-        }
+    .cover {
+      background-image:
+        linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.25)),
+        url('https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png');
+      background-size: cover;
+      background-position: center;
+      background-color: var(--bg-dark);
+      border: none;
+    }
+    .cover::before { display: none; }
 
-        @keyframes pulse-bg {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.05);
-            }
-        }
-        @keyframes float-splash {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-                box-shadow: 0 15px 50px rgba(212, 175, 55, 0.6);
-            }
-        }
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .page-content {
+      position: relative;
+      z-index: 10;
+      padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 3vw, 2.5rem);
+      height: 100%;
+      overflow-y: auto;
+      color: var(--text-main);
+      border: 2px solid rgba(212,175,55,.3);
+      margin: clamp(.4rem, 1.5vh, 1rem);
+      border-radius: 8px;
+      outline: 1px solid rgba(212,175,55,.6);
+      outline-offset: -6px;
+      background: rgba(255,255,255,.42);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-primary) transparent;
+    }
 
-        #app-container {
-            display: none;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            perspective: 2000px;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            padding: clamp(0.5rem, 2vh, 1.5rem);
-            box-sizing: border-box;
-        }
+    .page-content::-webkit-scrollbar { width: 4px; }
+    .page-content::-webkit-scrollbar-track { background: transparent; }
+    .page-content::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 10px; }
 
-        .book-wrapper {
-            position: relative;
-            width: clamp(300px, 90vw, 650px);
-            height: clamp(400px, 80vh, 850px);
-            max-height: 90vh;
-            box-shadow: 25px 25px 50px rgba(0, 0, 0, 0.8), -10px 0 20px rgba(0, 0, 0, 0.5) inset;
-            border-radius: 5px 20px 20px 5px;
-            background: var(--bg-dark);
-            flex-shrink: 0;
-        }
+    .chapter-title {
+      font-family: 'Reem Kufi', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      color: var(--gold-dark);
+      text-align: center;
+      margin: 0 0 clamp(.8rem, 2vh, 1.5rem);
+      font-weight: 700;
+      position: relative;
+      padding-bottom: clamp(.6rem, 1.5vh, 1rem);
+    }
 
-        .page {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--paper);
-            border-radius: 5px 15px 15px 5px;
-            box-shadow: inset -5px 0 20px rgba(0, 0, 0, 0.1);
-            transform-origin: right center;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1),
-                opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-            transform-style: preserve-3d;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            will-change: transform, opacity;
-        }
+    .chapter-title::after {
+      content: '𓋹 𓍹 𓍺 𓋹';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(.8rem, 2vw, 1.2rem);
+      letter-spacing: 5px;
+      color: var(--gold-primary);
+      white-space: nowrap;
+    }
 
-        .page::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.06"/></svg>');
-            pointer-events: none;
-            z-index: 1;
-        }
+    .book-text p {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      line-height: clamp(1.8, 2.6vh, 2.2);
+      margin: 0 0 clamp(.6rem, 1.5vh, 1.2rem);
+      text-align: justify;
+      font-weight: 600;
+    }
 
-        .page::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40px;
-            height: 100%;
-            background: linear-gradient(to left, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
-            pointer-events: none;
-            z-index: 2;
-        }
+    .book-text .highlight {
+      color: var(--gold-dark);
+      font-weight: 800;
+      font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+      display: block;
+      margin: clamp(.8rem, 2vh, 1.5rem) 0;
+      text-align: center;
+      font-family: 'Reem Kufi', sans-serif;
+    }
 
-        .page.flipped {
-            transform: rotateY(160deg) scale(0.95);
-            opacity: 0;
-            pointer-events: none;
-        }
+    .book-text ul { padding-right: 1.5rem; }
+    .book-text li { margin-bottom: .55rem; line-height: 1.9; }
 
-        .cover {
-            background-image: url('https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png');
-            background-size: cover;
-            background-position: center;
-            background-color: var(--bg-dark);
-            border: none;
-        }
-        .cover::before {
-            display: none;
-        }
-        .cover::after {
-            background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-        }
+    .quote-box {
+      background: rgba(212,175,55,.1);
+      border-right: 4px solid var(--gold-primary);
+      padding: clamp(.8rem, 2vh, 1.5rem);
+      border-radius: 8px;
+      margin: clamp(.8rem, 2vh, 1.5rem) 0;
+    }
 
-        .page-content {
-            position: relative;
-            z-index: 10;
-            padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 3vw, 2.5rem);
-            height: 100%;
-            overflow-y: auto;
-            color: var(--text-main);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            margin: clamp(0.4rem, 1.5vh, 1rem);
-            border-radius: 8px;
-            outline: 1px solid rgba(212, 175, 55, 0.6);
-            outline-offset: -6px;
-            background: rgba(255, 255, 255, 0.4);
-            user-select: text;
-            -webkit-overflow-scrolling: touch;
-        }
+    .quote-box .highlight { margin: 0; text-align: right; }
 
-        .page-content::-webkit-scrollbar {
-            width: 4px;
-        }
-        .page-content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .page-content::-webkit-scrollbar-thumb {
-            background: var(--gold-primary);
-            border-radius: 10px;
-        }
+    .sources {
+      font-size: .9em;
+      color: var(--text-muted);
+    }
 
-        .chapter-title {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            color: var(--gold-dark);
-            text-align: center;
-            margin-bottom: clamp(0.8rem, 2vh, 1.5rem);
-            font-weight: bold;
-            position: relative;
-            padding-bottom: clamp(0.6rem, 1.5vh, 1rem);
-        }
+    .controls {
+      position: absolute;
+      bottom: clamp(-55px, -10vh, -70px);
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 clamp(.3rem, 1vw, 1rem);
+      z-index: 100;
+      gap: .5rem;
+    }
 
-        .chapter-title::after {
-            content: '𓋹 𓍹 𓍺 𓋹';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: clamp(0.8rem, 2vw, 1.2rem);
-            letter-spacing: 5px;
-            color: var(--gold-primary);
-        }
+    .btn {
+      background: rgba(212,175,55,.1);
+      color: var(--gold-primary);
+      border: 1px solid var(--gold-primary);
+      padding: clamp(.5rem, 1.5vh, .8rem) clamp(.8rem, 2vw, 1.5rem);
+      font-family: 'Reem Kufi', sans-serif;
+      font-size: clamp(.8rem, 2vw, 1.1rem);
+      border-radius: 30px;
+      cursor: pointer;
+      transition: .3s ease;
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      gap: clamp(.3rem, 1vw, .6rem);
+      min-height: 44px;
+      touch-action: manipulation;
+      white-space: nowrap;
+    }
 
-        .book-text p {
-            font-size: clamp(1rem, 2.2vw, 1.2rem);
-            line-height: clamp(1.8, 2.6vh, 2.2);
-            margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
-            text-align: justify;
-            font-weight: 600;
-        }
+    .btn:hover:not(:disabled) {
+      background: var(--gold-primary);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px rgba(212,175,55,.5);
+      transform: translateY(-2px);
+    }
 
-        .book-text .highlight {
-            color: var(--gold-dark);
-            font-weight: 800;
-            font-size: clamp(1.1rem, 2.8vw, 1.3rem);
-            display: block;
-            margin: clamp(0.8rem, 2vh, 1.5rem) 0;
-            text-align: center;
-            font-family: 'Reem Kufi', sans-serif;
-        }
+    .btn:disabled { opacity: .3; cursor: not-allowed; border-color: #555; color: #777; }
 
-        .book-text ul {
-            list-style: disc;
-            padding-right: clamp(1rem, 2vw, 1.5rem);
-        }
-        .book-text ul li {
-            margin-bottom: clamp(0.3rem, 0.8vh, 0.5rem);
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            line-height: clamp(1.8, 2.4vh, 2);
-        }
+    .page-number {
+      font-family: 'Reem Kufi', sans-serif;
+      color: var(--gold-primary);
+      font-size: clamp(.7rem, 1.8vw, 1.1rem);
+      background: rgba(0,0,0,.5);
+      padding: .2rem .8rem;
+      border-radius: 20px;
+      border: 1px solid rgba(212,175,55,.3);
+      white-space: nowrap;
+      text-align: center;
+      min-width: 90px;
+    }
 
-        .book-text h3 {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-        }
+    #digital-watermark {
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      color: rgba(212,175,55,.15);
+      font-size: 8px;
+      font-family: monospace;
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-        .book-text h4 {
-            font-size: clamp(1.1rem, 2.6vw, 1.3rem);
-        }
+    .opinion-card {
+      background: linear-gradient(135deg, rgba(212,175,55,.16), rgba(153,122,0,.08));
+      border: 1px solid rgba(212,175,55,.65);
+      border-radius: 14px;
+      padding: clamp(1rem, 3vh, 1.8rem);
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      margin: 1rem 0;
+    }
 
-        .controls {
-            position: absolute;
-            bottom: clamp(-55px, -10vh, -70px);
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 clamp(0.3rem, 1vw, 1rem);
-            z-index: 100;
-            box-sizing: border-box;
-            gap: 0.5rem;
-        }
+    .opinion-card .main-opinion {
+      font-size: clamp(1.2rem, 3.3vw, 1.6rem);
+      line-height: 1.9;
+      text-align: center;
+      color: #725700;
+      font-family: 'Reem Kufi', sans-serif;
+      font-weight: 700;
+    }
 
-        .btn {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold-primary);
-            border: 1px solid var(--gold-primary);
-            padding: clamp(0.5rem, 1.5vh, 0.8rem) clamp(0.8rem, 2vw, 1.5rem);
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: clamp(0.8rem, 2vw, 1.1rem);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            gap: clamp(0.3rem, 1vw, 0.6rem);
-            min-height: 44px;
-            touch-action: manipulation;
-            white-space: nowrap;
-        }
+    @media (max-width: 400px) {
+      .book-wrapper { width: 92vw; height: 72vh; }
+      .page-content { padding: .8rem .7rem; margin: .3rem; outline-offset: -4px; }
+      .controls { bottom: -48px; gap: .3rem; padding: 0 .2rem; }
+      .btn { padding: .4rem .6rem; font-size: .7rem; min-height: 38px; }
+      .page-number { font-size: .65rem; min-width: 45px; }
+      .chapter-title { font-size: 1.3rem; }
+      .book-text p { font-size: .9rem; line-height: 1.7; }
+      .book-text .highlight { font-size: 1rem; }
+      .splash-image-container { width: 100px; height: 150px; }
+      .splash-title { font-size: 1.8rem; }
+    }
 
-        .btn:hover:not(:disabled) {
-            background: var(--gold-primary);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-            transform: translateY(-2px);
-        }
+    @media (min-width: 401px) and (max-width: 768px) {
+      .book-wrapper { width: 92vw; height: 75vh; }
+      .page-content { padding: 1.2rem; }
+      .controls { bottom: -60px; }
+      .btn { padding: .5rem 1rem; font-size: .9rem; }
+      .chapter-title { font-size: 1.6rem; }
+      .book-text p { font-size: 1rem; }
+    }
 
-        .btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            border-color: #555;
-            color: #555;
-            transform: none !important;
-        }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .book-wrapper { width: 80vw; height: 75vh; max-width: 580px; }
+      .page-content { padding: 2rem 1.8rem; }
+    }
 
-        .btn i {
-            font-size: clamp(0.8rem, 1.8vw, 1rem);
-        }
+    @media (min-width: 1025px) {
+      .book-wrapper { width: 60vw; max-width: 700px; height: 80vh; max-height: 900px; }
+      .page-content { padding: 2.8rem 2.5rem; }
+    }
 
-        .page-number {
-            font-family: 'Reem Kufi', sans-serif;
-            color: var(--gold-primary);
-            font-size: clamp(0.7rem, 1.8vw, 1.1rem);
-            background: rgba(0, 0, 0, 0.5);
-            padding: clamp(0.2rem, 0.8vh, 0.4rem) clamp(0.6rem, 1.5vw, 1.2rem);
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            white-space: nowrap;
-            text-align: center;
-            min-width: clamp(50px, 12vw, 90px);
-        }
+    @media (min-width: 1400px) {
+      .book-wrapper { max-width: 780px; height: 75vh; max-height: 950px; }
+      .page-content { padding: 3.5rem 3rem; }
+    }
 
-        /* ===== استعلامات الوسائط للتجاوب المتقدم ===== */
-
-        /* شاشات صغيرة جدًا (هواتف صغيرة) */
-        @media (max-width: 400px) {
-            .book-wrapper {
-                width: 92vw;
-                height: 72vh;
-            }
-            .page-content {
-                padding: 0.8rem 0.7rem;
-                margin: 0.3rem;
-                outline-offset: -4px;
-            }
-            .controls {
-                bottom: -48px;
-                gap: 0.3rem;
-                padding: 0 0.2rem;
-            }
-            .btn {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.7rem;
-                min-height: 38px;
-                gap: 0.2rem;
-            }
-            .btn i {
-                font-size: 0.7rem;
-            }
-            .page-number {
-                font-size: 0.65rem;
-                padding: 0.2rem 0.5rem;
-                min-width: 45px;
-            }
-            .chapter-title {
-                font-size: 1.3rem;
-            }
-            .book-text p {
-                font-size: 0.9rem;
-                line-height: 1.7;
-            }
-            .book-text .highlight {
-                font-size: 1rem;
-            }
-            .splash-image-container {
-                width: 100px;
-                height: 150px;
-            }
-            .splash-title {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* هواتف متوسطة وكبيرة */
-        @media (min-width: 401px) and (max-width: 768px) {
-            .book-wrapper {
-                width: 92vw;
-                height: 75vh;
-            }
-            .page-content {
-                padding: 1.2rem 1.2rem;
-            }
-            .controls {
-                bottom: -60px;
-            }
-            .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-            .chapter-title {
-                font-size: 1.6rem;
-            }
-            .book-text p {
-                font-size: 1rem;
-            }
-        }
-
-        /* أجهزة لوحية */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .book-wrapper {
-                width: 80vw;
-                height: 75vh;
-                max-width: 580px;
-            }
-            .page-content {
-                padding: 2rem 1.8rem;
-            }
-        }
-
-        /* شاشات كبيرة */
-        @media (min-width: 1025px) {
-            .book-wrapper {
-                width: 60vw;
-                max-width: 700px;
-                height: 80vh;
-                max-height: 900px;
-            }
-            .page-content {
-                padding: 2.8rem 2.5rem;
-            }
-        }
-
-        /* شاشات عريضة جدًا */
-        @media (min-width: 1400px) {
-            .book-wrapper {
-                max-width: 780px;
-                height: 75vh;
-                max-height: 950px;
-            }
-            .page-content {
-                padding: 3.5rem 3rem;
-            }
-        }
-
-        /* تحسين للهواتف في الوضع الأفقي */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .book-wrapper {
-                height: 75vh;
-                max-height: 90vh;
-                width: 70vw;
-            }
-            .page-content {
-                padding: 0.8rem 1rem;
-            }
-            .controls {
-                bottom: -45px;
-            }
-            .btn {
-                padding: 0.3rem 0.8rem;
-                font-size: 0.75rem;
-                min-height: 34px;
-            }
-            .chapter-title {
-                font-size: 1.2rem;
-                margin-bottom: 0.5rem;
-            }
-            .book-text p {
-                font-size: 0.85rem;
-                line-height: 1.5;
-                margin-bottom: 0.4rem;
-            }
-            .book-text .highlight {
-                font-size: 0.9rem;
-                margin: 0.5rem 0;
-            }
-            .splash-image-container {
-                width: 80px;
-                height: 120px;
-            }
-            .splash-title {
-                font-size: 1.6rem;
-            }
-            .splash-subtitle {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* دعم الوضع المظلم في نظام التشغيل (حفاظًا على التصميم) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --paper: #f5efe6;
-                --text-main: #1e1e2a;
-            }
-            .page-content {
-                background: rgba(245, 239, 230, 0.85);
-            }
-        }
-    </style>
+    @media (max-height: 500px) and (orientation: landscape) {
+      .book-wrapper { height: 75vh; max-height: 90vh; width: 70vw; }
+      .page-content { padding: .8rem 1rem; }
+      .controls { bottom: -45px; }
+      .btn { padding: .3rem .8rem; font-size: .75rem; min-height: 34px; }
+      .chapter-title { font-size: 1.2rem; margin-bottom: .5rem; }
+      .book-text p { font-size: .85rem; line-height: 1.5; margin-bottom: .4rem; }
+      .book-text .highlight { font-size: .9rem; margin: .5rem 0; }
+    }
+  </style>
 </head>
+<body class="no-select">
 
-<body>
-
-    <!-- ===== شاشة البداية ===== -->
-    <div id="splash-screen">
-        <div class="splash-bg"></div>
-        <div class="splash-content">
-            <div class="splash-image-container">
-                <img src="https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png" alt="غلاف الكتاب" class="splash-image" loading="lazy" />
-            </div>
-            <h1 class="splash-title">سر الأهرامات</h1>
-            <p class="splash-subtitle">آلة هندسية أم مقبرة؟</p>
-        </div>
+  <div id="splash-screen" aria-label="شاشة البداية">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <div class="splash-image-container">
+        <img src="https://i.postimg.cc/R0M6C6Sb/Chat-GPT-Image-12-aghsts-2026-04-43-29-m.png" alt="غلاف كتاب سر الأهرامات" class="splash-image" />
+      </div>
+      <h1 class="splash-title">سِرّ الأهرامات</h1>
+      <p class="splash-subtitle">مقبرة… أم آلة هندسية للطاقة؟</p>
     </div>
+  </div>
 
-    <!-- ===== تطبيق الكتاب ===== -->
-    <div id="app-container">
-        <div class="book-wrapper">
-            <div id="book">
-                <!-- سيتم حقن الصفحات بواسطة JavaScript -->
-            </div>
-
-            <div class="controls">
-                <button class="btn" id="prev-btn" onclick="goPrevPage()">
-                    <i class="fas fa-arrow-right"></i> <span class="btn-text">السابق</span>
-                </button>
-                <div class="page-number" id="page-indicator">الغلاف</div>
-                <button class="btn" id="next-btn" onclick="goNextPage()">
-                    <span class="btn-text">التالي</span> <i class="fas fa-arrow-left"></i>
-                </button>
-            </div>
-        </div>
+  <div id="app-container">
+    <div class="book-wrapper">
+      <div id="book"></div>
+      <div class="controls">
+        <button class="btn" id="prev-btn" type="button" onclick="goPrevPage()" aria-label="الصفحة السابقة">
+          <i class="fas fa-arrow-right"></i><span class="btn-text">السابق</span>
+        </button>
+        <div class="page-number" id="page-indicator">الغلاف</div>
+        <button class="btn" id="next-btn" type="button" onclick="goNextPage()" aria-label="الصفحة التالية">
+          <span class="btn-text">افتح الكتاب</span><i class="fas fa-book-open"></i>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // ==================== بيانات الكتاب ====================
-        const bookData = [{
-            isCover: true,
-            content: ``
-        }, {
-            title: "سر الأهرامات",
-            content: `
-                        <div style="text-align: center; margin-top: clamp(0.5rem, 2vh, 2rem);">
-                            <span class="highlight" style="font-size: clamp(1.3rem, 4vw, 2rem); margin-bottom: clamp(0.8rem, 2vh, 2rem);">هل كان الهرم الأكبر مقبرة…<br>أم آلة هندسية للطاقة؟</span>
-                            <p style="text-align: center; color: var(--text-muted); font-size: clamp(0.9rem, 2vw, 1.1rem);">تأليف وإعداد: بحث شامل في وظيفة الأهرامات</p>
-                        </div>
-                    `
-        }, {
-            title: "مقدمة",
-            content: `
-                        <p>منذ آلاف السنين يقف الهرم الأكبر في هضبة الجيزة كأنه رسالة تركها أصحابها للعالم، ثم أُغلقت أبوابها واختفت مفاتيحها.</p>
-                        <p>نعرف اسم الملك الذي ارتبط به الهرم: خوفو. ونعرف أن المصريين القدماء بنوا مجمعًا ضخمًا حوله، ونعرف أن الهرم أحد أعظم الإنجازات الهندسية في العالم القديم. لكن السؤال الذي يثير الجدل يبدأ من هنا:</p>
-                        <span class="highlight">هل فهمنا فعلًا الوظيفة الأصلية للهرم الأكبر؟</span>
-                        <p>الرواية التقليدية تعتبر الهرم مقبرة ملكية. وهذا هو التفسير الرسمي السائد اليوم؛ فوزارة السياحة والآثار المصرية تصف الهرم الأكبر بأنه مقبرة الملك خوفو، وتذكر وجود تابوت حجري في حجرة الملك. كما أن مجمعات الجيزة ترتبط بمنشآت جنائزية ومعابد ومراكب ملكية.</p>
-                        <p>لكن داخل هذه القصة توجد أسئلة لا يمكن تجاهلها:</p>
-                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: clamp(1.8, 2.4vh, 2);">
-                            <li><span style="color: var(--text-main);">لماذا بُني الهرم بهذا التعقيد الهندسي الهائل؟</span></li>
-                            <li><span style="color: var(--text-main);">لماذا يحتوي على ممرات وغرف وفراغات لا نعرف وظيفة بعضها حتى اليوم؟</span></li>
-                            <li><span style="color: var(--text-main);">لماذا ظلّت أجزاء من بنيته الداخلية مجهولة حتى العصر الحديث؟</span></li>
-                            <li><span style="color: var(--text-main);">ولماذا ظهر في عام 2017 اكتشاف علمي لفراغ داخلي ضخم، ولم يتمكن الباحثون حتى الآن من تحديد وظيفته؟</span></li>
-                        </ul>
-                        <p>هذا الكتاب لا يطلب من القارئ أن يصدق كل شيء بلا دليل. بل يفعل العكس. إنه يعيد النظر في الهرم من زاوية مختلفة، ويسأل:</p>
-                        <span class="highlight">ماذا لو كان ما نراه اليوم ليس قبرًا ضخمًا فقط، بل جزءًا من منظومة هندسية أكثر تعقيدًا؟</span>
-                        <p style="text-align: center; font-weight: bold;">وهنا تبدأ رحلة البحث عن السر.</p>
-                    `
-        }, {
-            title: "الفصل الأول",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">الهرم الذي لا يشبه ما نتوقعه من قبر</h3>
-                        <p>عندما نفكر في مقبرة ملكية، نتوقع عادةً أن نجد شيئًا يعرّفنا بصاحب القبر: كتابات، أسماء، مشاهد، طقوس، تماثيل، مقتنيات، أو على الأقل بقايا دفن واضحة.</p>
-                        <p>والحضارة المصرية نفسها تركت لنا أمثلة كثيرة على هذا النوع من العمارة الجنائزية. في المقابر الملكية والأرستقراطية نجد نصوصًا ورسومات ومناظر وقرابين وتماثيل، وكان العالم الآخر عنصرًا أساسيًا في الفن الجنائزي المصري.</p>
-                        <p>لكن الهرم الأكبر مختلف.</p>
-                        <p>ليس المقصود أنه خالٍ تمامًا من أي كتابة؛ فهذا غير صحيح. توجد داخله علامات وكتابات عمالية، كما توجد منشآت جنائزية مرتبطة به خارج جسم الهرم. لكن الهرم الأكبر يفتقد شيئًا مهمًا ظهر لاحقًا بصورة واضحة: نصوص الأهرام الجنائزية المنقوشة داخل الحجرات الداخلية.</p>
-                        <p>أقدم مثال معروف لنصوص الأهرام هو هرم الملك أوناس في سقارة، من الأسرة الخامسة، أي بعد عصر أهرامات الجيزة.</p>
-                        <span class="highlight">إذا كانت النصوص الجنائزية ستصبح لاحقًا جزءًا مهمًا من الأهرامات الملكية، فلماذا لا نجدها في هرم خوفو؟ هل هذا دليل على أن الهرم لم يكن مقبرة؟</span>
-                        <p>ليس بالضرورة. لكنه بالتأكيد سؤال يستحق الدراسة.</p>
-                    `
-        }, {
-            title: "الفصل الثاني",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">أين جثمان الملك؟</h3>
-                        <p>واحدة من أكثر النقاط إثارة في قضية الهرم الأكبر هي أن مومياء خوفو نفسها لم تُكتشف داخله.</p>
-                        <p>عندما يدخل الزائر اليوم إلى حجرة الملك، يجد التابوت الحجري، لكنه لا يجد الملك. هنا يجب أن نكون دقيقين.</p>
-                        <p>غياب المومياء ليس دليلًا قاطعًا على أن الهرم لم يكن مقبرة. فالمقبرة القديمة يمكن أن تُنهب، ويمكن أن تختفي محتوياتها عبر آلاف السنين. لكن في المقابل، عدم العثور على الجثمان يمنعنا أيضًا من استخدام المومياء باعتبارها الدليل المباشر الذي يحسم المسألة.</p>
-                        <span class="highlight">إذن نحن أمام سؤال مفتوح:<br>هل كان التابوت جزءًا من دفن ملكي فعلًا؟ أم أن له وظيفة أخرى داخل تصميم أكبر؟</span>
-                        <p>والسؤال يصبح أكثر إثارة عندما ننظر إلى الهرم باعتباره مبنى كاملًا، بدلًا من التركيز على الحجرة وحدها.</p>
-                        <p>فالهرم لم يكن مبنى منفردًا في الصحراء. كان مركزًا لمجمع ضخم يضم معابد وممرًا صاعدًا ومنشآت أخرى ومراكب مرتبطة بالملك. وزارة السياحة والآثار المصرية توضح أن مجمعات الجيزة كانت تتكون من الهرم والمعابد والممرات وحفر المراكب، وأن الهرم كان جزءًا من منظومة ملكية كاملة.</p>
-                        <p>وهنا تظهر مفارقة: الهرم نفسه شديد البساطة مقارنةً بالمنظومة المحيطة به.</p>
-                    `
-        }, {
-            title: "الفصل الثالث",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">الهرم والعلوم التي لم نكن نعرفها عنه</h3>
-                        <p>من أكثر الأخطاء شيوعًا أن نتعامل مع الهرم وكأن العلماء عرفوا بالفعل كل ما بداخله. الحقيقة مختلفة.</p>
-                        <p>في سنة 2017 نشر فريق دولي بحثًا في مجلة Nature أعلن فيه اكتشاف فراغ داخلي كبير في الهرم الأكبر باستخدام جسيمات الميون القادمة من الأشعة الكونية. الفراغ أطلق عليه الباحثون اسم Big Void.</p>
-                        <p>قدرت الدراسة أن طوله الأدنى يزيد على 30 مترًا، وأن مقطعه قريب من مقطع المعرض الكبير، وتم تأكيد وجوده بثلاث تقنيات مختلفة للكشف عن الميونات وتحليل مستقل. والأهم أن الباحثين أعلنوا صراحة أن وظيفة هذا الفراغ غير معروفة حتى الآن.</p>
-                        <p>تأمل هذه النقطة. الهرم عمره أكثر من أربعة آلاف عام. ومع ذلك احتاج الإنسان الحديث إلى فيزياء الجسيمات والأشعة الكونية كي يكتشف بنية كبيرة داخله.</p>
-                        <span class="highlight">هذا لا يثبت أن الهرم كان محطة طاقة. لكنّه يثبت شيئًا مهمًا: أن معرفتنا بالبنية الداخلية للهرم ليست مكتملة.</span>
-                        <p>وهذه الحقيقة وحدها تجعل الأسئلة الجديدة مشروعة.</p>
-                    `
-        }, {
-            title: "الفصل الرابع",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">من الحجر إلى الطاقة</h3>
-                        <p>هنا نصل إلى الفكرة التي يقوم عليها هذا الكتاب.</p>
-                        <span class="highlight">ماذا لو لم يكن السؤال الحقيقي: كيف بنى المصريون الهرم؟ بل: لماذا صمم المصريون الهرم بهذه الطريقة أصلًا؟</span>
-                        <p>عندما ننظر إلى مبنى ضخم من الحجر، يمكننا أن نراه باعتباره عمارة. لكن يمكن للهندسة نفسها أن تؤدي وظائف أخرى. الحجر يمكن أن يخزن الحرارة. المواد المختلفة يمكن أن تتفاعل كهربائيًا وكيميائيًا. الأجسام ذات الأشكال الهندسية المحددة يمكن أن تتفاعل مع الموجات الكهرومغناطيسية. والفراغات يمكن أن تؤثر في السلوك الفيزيائي للموجات داخل المنشآت.</p>
-                        <p>وفي العصر الحديث، نعرف أن الطاقة يمكن نقلها واستحثاثها وتبادلها بطرق لا تعتمد دائمًا على الأسلاك المباشرة.</p>
-                        <p>لكن من هنا يجب أن نفصل بين حقيقتين:</p>
-                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: clamp(1.8, 2.4vh, 2);">
-                            <li><span style="color: var(--text-main);">الحقيقة الأولى: الفيزياء الحديثة تسمح بدراسة الهرم كنظام يمكن أن يتفاعل مع الطاقة والمجالات الكهرومغناطيسية.</span></li>
-                            <li><span style="color: var(--text-main);">الحقيقة الثانية: هذا لا يثبت أن المصريين القدماء استخدموا الهرم فعلًا كمولد كهرباء.</span></li>
-                        </ul>
-                        <p style="text-align: center; font-weight: bold;">وهنا تبدأ فرضية الكتاب.</p>
-                    `
-        }, {
-            title: "الفصل الخامس",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">هل الهرم يستطيع التفاعل مع الطاقة الكهرومغناطيسية؟</h3>
-                        <p>في الأبحاث الحديثة، دُرست الخصائص الكهرومغناطيسية لنماذج هندسية للهرم الأكبر، بما في ذلك كيفية تفاعل البنية مع المجالات والموجات الكهرومغناطيسية.</p>
-                        <p>هذه الدراسات لا تقول إن المصريين القدماء كانوا يولدون الكهرباء داخل الهرم. لكنها تفتح بابًا فيزيائيًا مهمًا: شكل الهرم ليس مجرد شكل جميل.</p>
-                        <p>فالهندسة يمكن أن تؤثر على تركيز وتوزيع الحقول والموجات. وعندما نتحدث عن الطاقة، يجب ألا نقصر تفكيرنا على الكهرباء التي نراها في الأسلاك الحديثة.</p>
-                        <p>الطاقة موجودة بأشكال متعددة: حرارية، كيميائية، ميكانيكية، كهربائية، وكهرومغناطيسية. ويمكن تحويل أحد أشكالها إلى الآخر.</p>
-                        <span class="highlight">لهذا فإن السؤال العلمي الذي يجب أن نطرحه ليس: «هل الهرم سحر؟»<br><br>بل: هل كانت هندسة الهرم مصممة لاستغلال ظاهرة فيزيائية محددة؟</span>
-                        <p>وهذا سؤال يمكن اختباره.</p>
-                    `
-        }, {
-            title: "الفصل السادس",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">الجرانيت والكوارتز: هل توجد وظيفة تتجاوز البناء؟</h3>
-                        <p>من أكثر الأشياء التي تستحق الدراسة في الهرم استخدام مواد مختلفة في أجزاء مختلفة من بنيته.</p>
-                        <p>حجرة الملك، على سبيل المثال، تحتوي على كتل ضخمة من الجرانيت. والجرانيت يحتوي طبيعيًا على معادن مختلفة، من بينها الكوارتز. الكوارتز معروف علميًا بخصائصه الكهروضغطية؛ أي أن الضغط الميكانيكي على بلورات معينة من الكوارتز يمكن أن يرتبط بتوليد فرق جهد كهربائي، والعكس في بعض التطبيقات.</p>
-                        <p>لكن هنا يجب أن نتوقف.</p>
-                        <p>وجود الكوارتز في الجرانيت لا يعني أن الهرم كان بطارية. ولا يعني أن الضغط الناتج عن وزن الأحجار كان كافيًا لإنتاج كهرباء يمكن استخدامها عمليًا. هذا النوع من الكلام يحتاج إلى تجربة وقياس، وليس إلى تشابهات فقط.</p>
-                        <span class="highlight">ولهذا فإن السؤال الأكثر أهمية هو: هل توجد في الهرم منظومة كاملة من المواد والهندسة والظروف الفيزيائية تسمح بتحويل طاقة طبيعية إلى طاقة قابلة للاستخدام؟</span>
-                        <p>حتى الآن، لا توجد أدلة أثرية حاسمة تثبت ذلك. لكنها واحدة من الفرضيات التي تستحق الاختبار بدلًا من ترديدها بلا تحليل.</p>
-                    `
-        }, {
-            title: "الفصل السابع",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">الماء… الحلقة المفقودة؟</h3>
-                        <p>يذهب بعض أصحاب نظرية «محطة الطاقة» إلى أن الماء كان عنصرًا أساسيًا في منظومة الهرم.</p>
-                        <p>الفكرة تقوم على أن الماء يمكن أن يؤدي دورًا مهمًا في بعض الأنظمة الفيزيائية: من نقل الحرارة إلى التأثير في الضغط والتدفق والخواص الكهربائية.</p>
-                        <p>لكن مجرد وجود الماء في البيئة المحيطة بالجيزة لا يكفي لإثبات وجود نظام لتوليد الطاقة. حتى يتحول الكلام إلى علم، نحتاج إلى شيء واضح:</p>
-                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: clamp(1.8, 2.4vh, 2);">
-                            <li><span style="color: var(--text-main);">مسار محدد للماء.</span></li>
-                            <li><span style="color: var(--text-main);">فرق ضغط قابل للقياس.</span></li>
-                            <li><span style="color: var(--text-main);">آلية لتحويل الحركة أو الضغط إلى طاقة.</span></li>
-                            <li><span style="color: var(--text-main);">ومخرج يمكن من خلاله استخدام الطاقة الناتجة.</span></li>
-                        </ul>
-                        <p>وهذه النقطة تحديدًا تمثل تحديًا كبيرًا لأي نظرية تقول إن الهرم كان محطة طاقة كاملة.</p>
-                        <span class="highlight">فالاختراع ليس مجرد وجود ظاهرة فيزيائية. الاختراع هو تحويل الظاهرة إلى نظام يعمل.</span>
-                    `
-        }, {
-            title: "الفصل الثامن",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">تسلا والأهرامات</h3>
-                        <p>عندما نصل إلى اسم نيكولا تسلا، يظهر سؤال مثير.</p>
-                        <p>تسلا كان أحد أهم الشخصيات في تاريخ الكهرباء الحديثة. ساهم في تطوير أنظمة التيار المتردد، وطوّر المحرك الحثي متعدد الأطوار، وأجرى تجارب على نقل الطاقة لاسلكيًا. وتوثق مصادر IEEE دوره في تطوير محرك التيار المتردد وتقنيات أنظمة القدرة الكهربائية.</p>
-                        <p>إذن هناك تشابه واضح في فكرة الطاقة ونقلها دون الاعتماد الكامل على الأسلاك التقليدية.</p>
-                        <p>لكن هل كان تسلا يقلد المصريين القدماء؟ هنا يجب أن نكون صريحين.</p>
-                        <p>لا نملك دليلًا تاريخيًا موثوقًا يثبت أن تسلا درس الهرم الأكبر ثم أعاد بناء فكرته. ومن الخطأ أن نحول هذا التشابه إلى حقيقة تاريخية.</p>
-                        <span class="highlight">لكن يمكننا طرح سؤال مختلف: لماذا عاد تسلا نفسه إلى فكرة نقل الطاقة عبر الهواء والفضاء؟ ولماذا ظلت فكرة الطاقة اللاسلكية حلمًا هندسيًا كبيرًا حتى العصر الحديث؟</span>
-                        <p>ربما لأن الطاقة لا تحتاج دائمًا إلى الصورة التي تعودنا عليها. وربما لأن هناك طرقًا فيزيائية متعددة للتفاعل معها. لكن الانتقال من هذا السؤال إلى القول بأن المصريين القدماء سبقوا تسلا بأكثر من أربعة آلاف عام يحتاج إلى أدلة إضافية.</p>
-                    `
-        }, {
-            title: "الفصل التاسع",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">الآية التي دفعتني إلى التفكير</h3>
-                        <p>يقول الله تعالى:</p>
-                        <span class="highlight" style="font-size: clamp(1.2rem, 3.5vw, 1.8rem); line-height: 1.6; color: var(--gold-primary); text-shadow: 1px 1px 2px #000;">
-                            ﴿كَالَّذِينَ مِن قَبْلِكُمْ كَانُوا أَشَدَّ مِنكُمْ قُوَّةً وَأَكْثَرَ أَمْوَالًا وَأَوْلَادًا فَاسْتَمْتَعُوا بِخَلَاقِهِمْ...﴾
-                        </span>
-                        <p style="text-align: center; margin-top: -10px; font-size: clamp(0.8rem, 1.8vw, 1rem); color: var(--text-muted);">سورة التوبة، الآية 69.</p>
-                        <p>الآية تتحدث عن أقوام سابقين كانوا أشد قوة وأكثر مالًا وأولادًا، ثم تحذر من المصير الذي انتهوا إليه. ومن الممكن للباحث أن يتأمل في عظمة الحضارات السابقة وقدرتها وما بلغته من قوة وعمران.</p>
-                        <p>لكن لا يصح أن نقول إن الآية تثبت تحديدًا أن المصريين القدماء كانوا يمتلكون مولدات كهربائية. فالآية نفسها لا تذكر الكهرباء ولا الهرم ولا تقنية معينة، والتفاسير المعروفة تشرح «أشد قوة» في سياق القوة والقدرة والتمكن وما ارتبط بذلك، لا باعتبارها نصًا تقنيًا عن الكهرباء.</p>
-                        <p>وهذا لا يقلل من قيمة الآية. بل يجعل استخدامها أكثر احترامًا: النص القرآني يقدم تذكيرًا بعظمة أقوام سبقونا، أما إثبات وظيفة الهرم فيحتاج إلى الدليل الأثري والفيزيائي.</p>
-                    `
-        }, {
-            title: "الفصل العاشر",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">أكبر سؤال: لماذا هذا التصميم؟</h3>
-                        <p>الهرم الأكبر ليس مجرد كومة من الحجارة. إنه مشروع هندسي هائل. داخله ممرات معقدة. وغرف. ومعرض كبير. وحجرات جرانيتية. وفضاءات داخلية ما زال بعضها مجهول الوظيفة. وفوق ذلك كله، اكتشف العلم الحديث فراغًا ضخمًا لم نكن نعرف بوجوده.</p>
-                        <p>لذلك يمكننا أن نسأل: لو كان الهدف الوحيد هو وضع جثمان ملك داخل مبنى حجري، فلماذا وصل التصميم إلى هذا المستوى من التعقيد؟</p>
-                        <p>الرأي التقليدي يملك إجابات؛ فالأهرامات كانت جزءًا من منظومة الملك والدفن والدين والعبادة في مصر القديمة. والمتاحف والمؤسسات الأثرية تمتلك أدلة قوية على هذه العلاقة.</p>
-                        <span class="highlight">لكن السؤال الذي يطرح نفسه في هذا الكتاب هو: هل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة؟</span>
-                        <p>وهذه نقطة مختلفة تمامًا. فالمنشأة يمكن نظريًا أن تحمل أكثر من وظيفة. قد تكون رمزًا دينيًا. وقد تكون قبرًا. وقد تكون مركزًا لطقوس. وقد تكون أيضًا مبنية وفق مبادئ هندسية لها وظائف أخرى. لكن كل وظيفة إضافية تحتاج إلى دليل إضافي.</p>
-                    `
-        }, {
-            title: "الفصل الحادي عشر",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">لماذا لا يكفي أن نقول «إنها مقبرة»؟</h3>
-                        <p>عندما يقال إن الهرم «مقبرة»، قد يشعر القارئ أن السؤال انتهى.</p>
-                        <p>لكن كلمة «مقبرة» تجيب عن سؤال واحد فقط: لمن بُني؟</p>
-                        <p>ولا تجيب بالضرورة عن:</p>
-                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: clamp(1.8, 2.4vh, 2);">
-                            <li><span style="color: var(--text-main);">لماذا اتخذ هذا الشكل تحديدًا؟</span></li>
-                            <li><span style="color: var(--text-main);">ما الوظيفة الدقيقة لكل فراغ؟</span></li>
-                            <li><span style="color: var(--text-main);">لماذا صممت هذه الممرات؟</span></li>
-                            <li><span style="color: var(--text-main);">لماذا اختيرت هذه المواد؟</span></li>
-                            <li><span style="color: var(--text-main);">لماذا وضعت الحجرات في هذه المستويات؟</span></li>
-                            <li><span style="color: var(--text-main);">ولماذا بقيت أجزاء من تصميمه مجهولة؟</span></li>
-                        </ul>
-                        <span class="highlight">في العلم، لا تكفي إجابة جزئية عندما تكون الأسئلة الأخرى ما زالت قائمة. ومن هنا جاءت فكرة هذا الكتاب.</span>
-                    `
-        }, {
-            title: "الفصل الثاني عشر",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">نظرية الهرم كمحطة طاقة</h3>
-                        <p>الآن يمكننا صياغة النظرية في أبسط صورة:</p>
-                        <div style="background: rgba(212, 175, 55, 0.1); border-right: 4px solid var(--gold-primary); padding: clamp(0.8rem, 2vh, 1.5rem); border-radius: 8px; margin: clamp(0.8rem, 2vh, 1.5rem) 0;">
-                            <span class="highlight" style="margin: 0; text-align: right;">ربما صُمم الهرم الأكبر ليجمع أو يحول أو يركز أشكالًا من الطاقة الطبيعية من خلال هندسته ومواده وموقعه، وربما كانت هذه الطاقة مرتبطة بالمجال الكهرومغناطيسي والاهتزاز والضغط والحركة والبيئة المحيطة.</span>
-                        </div>
-                        <p>هذه هي الفكرة المركزية.</p>
-                        <p>لكن حتى تصبح «حقيقة علمية» نحتاج إلى إثبات سلسلة كاملة: مصدر للطاقة، ثم آلية لالتقاطها، ثم آلية لتحويلها، ثم آلية لتوجيهها، ثم آثار مادية تدل على أن النظام كان يعمل، ثم دليل أثري على أن المصريين قصدوا استخدامه بهذه الطريقة.</p>
-                        <p>بدون هذه السلسلة، تظل النظرية فرضية قوية ومثيرة للاختبار، وليست حقيقة مثبتة.</p>
-                    `
-        }, {
-            title: "الفصل الثالث عشر",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">ما الذي نستطيع إثباته فعلًا؟</h3>
-                        <p>بعد كل ما سبق يمكننا تقسيم المعلومات إلى ثلاث طبقات.</p>
-                        
-                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: clamp(1rem, 2.6vw, 1.3rem); margin-top: clamp(0.8rem, 2vh, 1.5rem);">الطبقة الأولى: حقائق أثرية</h4>
-                        <p>الهرم الأكبر مرتبط بالملك خوفو. هناك مجمع جنائزي ضخم حوله. هناك تابوت حجري في حجرة الملك. هناك معابد وحفر مراكب ومنشآت مرتبطة بالمجمع الملكي. وهناك فراغ داخلي كبير اكتشفته تقنيات الميون.</p>
-                        
-                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: clamp(1rem, 2.6vw, 1.3rem); margin-top: clamp(0.8rem, 2vh, 1.5rem);">الطبقة الثانية: حقائق علمية</h4>
-                        <p>الحجر والمواد والفراغات والهندسة يمكن دراستها فيزيائيًا. والعلم الحديث يستطيع قياس خصائص الهرم والتقاط صور لبنيته الداخلية باستخدام تقنيات حديثة.</p>
-                        
-                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: clamp(1rem, 2.6vw, 1.3rem); margin-top: clamp(0.8rem, 2vh, 1.5rem);">الطبقة الثالثة: فرضية هذا الكتاب</h4>
-                        <p>أن تصميم الهرم قد يكون مرتبطًا بمنظومة لتوليد أو تحويل أو نقل الطاقة. وهذه هي المنطقة التي يجب أن نبحث فيها.</p>
-                    `
-        }, {
-            title: "الخاتمة",
-            content: `
-                        <h3 style="text-align: center; color: var(--text-muted); font-family: 'Reem Kufi', sans-serif; margin-bottom: clamp(0.8rem, 2vh, 1.5rem);">ربما كان السر في السؤال نفسه</h3>
-                        <p>ربما لن يكون أعظم اكتشاف متعلق بالأهرامات هو العثور على غرفة أخرى. ربما يكون أعظم اكتشاف هو أن السؤال الذي ظللنا نطرحه لآلاف السنين كان سؤالًا خاطئًا.</p>
-                        <span class="highlight">بدلًا من: «أين دُفن الملك؟»<br>ربما يجب أن نسأل: «ماذا كان هذا المبنى يفعل؟»</span>
-                        <p>الهرم الأكبر يقف أمامنا منذ آلاف السنين. وما زالت داخله أسرار. وما زالت تقنيات حديثة، مثل تصوير الميونات، تكشف لنا أن معرفتنا ببنيته ليست كاملة.</p>
-                        <p>قد تكون نظرية الهرم كمحطة طاقة صحيحة. وقد تكون خاطئة. وقد يكون الهرم قد جمع بين وظائف متعددة لم نفهمها بعد. لكن الشيء المؤكد هو أن البحث لم ينتهِ.</p>
-                        <p>ولهذا لا أريد أن يكون هذا الكتاب خاتمة الحديث عن الأهرامات. بل أريده أن يكون بداية سؤال جديد: هل بنى المصري القديم الهرم ليُدفن فيه فقط… أم أنه كان يبني شيئًا لم نفهم وظيفته الحقيقية حتى الآن؟</p>
-                        <p style="text-align: center; font-weight: bold; margin-top: clamp(0.8rem, 2vh, 2rem);">وربما، بعد آلاف السنين، يكون السر ما زال موجودًا أمام أعيننا. فوق الرمال. بين الحجارة. داخل الهرم. ينتظر فقط من يسأل السؤال الصحيح.</p>
-                    `
-        }, {
-            title: "ملاحظة ومصادر",
-            content: `
-                        <h4 style="color: var(--gold-dark); font-family: 'Reem Kufi', sans-serif; font-size: clamp(1rem, 2.6vw, 1.3rem); border-bottom: 2px solid var(--gold-primary); padding-bottom: 10px;">ملاحظة المؤلف</h4>
-                        <p style="font-size: clamp(0.9rem, 2vw, 1.1rem);">هذا الكتاب يميز عمدًا بين المعلومات الأثرية الموثقة وبين الاستنتاجات والنظريات التي تحتاج إلى مزيد من البحث. فوجود مجمع جنائزي حول أهرامات الجيزة دليل مهم لصالح التفسير الجنائزي التقليدي، بينما وجود فراغات مجهولة الوظيفة لا يثبت وحده نظرية الطاقة. وبالمثل، فإن الخصائص الفيزيائية للمواد والهندسة لا تكفي وحدها لإثبات أن الهرم كان مولدًا كهربائيًا.</p>
-                        <ul class="list-disc list-inside mb-4" style="color: var(--gold-dark); font-weight: 600; line-height: clamp(1.8, 2.4vh, 2);">
-                            <li><span style="color: var(--text-main);">The Metropolitan Museum of Art, Egypt in the Old Kingdom.</span></li>
-                            <li><span style="color: var(--text-main);">IEEE، مصادر عن نيكولا تسلا وأنظمة التيار المتردد والمحرك الحثي ونقل الطاقة.</span></li>
-                            <li><span style="color: var(--text-main);">سورة التوبة، الآية 69، وتفاسيرها.</span></li>
-                        </ul>
-                        
-                        <div style="margin-top: clamp(1.5rem, 5vh, 4rem); text-align: center; padding-top: clamp(1rem, 3vh, 2rem); border-top: 2px dashed rgba(212, 175, 55, 0.5); position: relative;">
-                            <i class="fas fa-feather-alt" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--gold-primary); background: transparent; padding: 0 15px;"></i>
-                            
-                            <p style="color: var(--text-muted); font-size: clamp(0.9rem, 2vw, 1.1rem); margin-bottom: 0.3rem; font-weight: 600;">تأليف وإعداد الكاتب والباحث</p>
-                            <h3 style="font-family: 'Reem Kufi', sans-serif; color: var(--gold-dark); font-size: clamp(1.3rem, 4vw, 2.2rem); font-weight: bold; margin: 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.15);">أ. عبدالرحمن أحمد الطيب</h3>
-                        </div>
-                    `
-        }];
+  <script>
+    // ==================== حماية واجهة المستخدم ====================
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('keydown', e => {
+      const blocked = [
+        e.key === 'F12',
+        e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key),
+        e.ctrlKey && ['U','u','S','s'].includes(e.key)
+      ].some(Boolean);
+      if (blocked) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
 
-        // ==================== منطق الكتاب ====================
-        let currentPageIndex = 0;
-        const bookElement = document.getElementById('book');
-        const pageIndicator = document.getElementById('page-indicator');
+    // ملاحظة: حماية الواجهة لا تمنع النسخ الكامل للملف من أدوات المتصفح.
+    // الحماية الحقيقية للمحتوى تحتاج إلى خادم/صلاحيات وصول، وليس JavaScript فقط.
 
-        function initBook() {
-            for (let i = bookData.length - 1; i >= 0; i--) {
-                const data = bookData[i];
-                const pageDiv = document.createElement('div');
+    function addDigitalWatermark() {
+      if (document.getElementById('digital-watermark')) return;
+      const watermark = document.createElement('div');
+      watermark.id = 'digital-watermark';
+      watermark.textContent = '© سِرّ الأهرامات | ' + new Date().getFullYear() + ' | جميع الحقوق محفوظة';
+      document.body.appendChild(watermark);
+    }
 
-                if (data.isCover) {
-                    pageDiv.className = `page cover`;
-                } else {
-                    pageDiv.className = `page`;
-                    pageDiv.innerHTML = `
-                                <div class="page-content book-text">
-                                    <h2 class="chapter-title">${data.title}</h2>
-                                    ${data.content}
-                                </div>
-                            `;
-                }
+    // ==================== بيانات الكتاب ====================
+    const bookData = [
+      { isCover: true, content: '' },
+      {
+        title: 'سِرّ الأهرامات',
+        content: `
+          <div style="text-align:center; margin-top:clamp(.5rem,2vh,2rem)">
+            <span class="highlight" style="font-size:clamp(1.3rem,4vw,2rem); margin-bottom:clamp(.8rem,2vh,2rem)">
+              هل كان الهرم الأكبر مقبرة…<br>أم آلة هندسية للطاقة؟
+            </span>
+            <p style="text-align:center;color:var(--text-muted);font-size:clamp(.9rem,2vw,1.1rem)">تأليف وإعداد: عبدالرحمن أحمد الطيب</p>
+          </div>
+        `
+      },
+      {
+        title: 'مقدمة',
+        content: `
+          <p>منذ آلاف السنين يقف الهرم الأكبر في هضبة الجيزة كأنه رسالة تركها أصحابها للعالم، ثم أُغلقت أبوابها واختفت مفاتيحها.</p>
+          <p>نعرف اسم الملك الذي ارتبط به الهرم: خوفو. ونعرف أن المصريين القدماء بنوا مجمعًا ضخمًا حوله، ونعرف أن الهرم أحد أعظم الإنجازات الهندسية في العالم القديم. لكن السؤال الذي يثير الجدل يبدأ من هنا:</p>
+          <span class="highlight">هل فهمنا فعلًا الوظيفة الأصلية للهرم الأكبر؟</span>
+          <p>الرواية التقليدية تعتبر الهرم مقبرة ملكية، وهذا هو التفسير الأثري السائد. لكن داخل هذه القصة توجد أسئلة تستحق البحث: لماذا بُني الهرم بهذا التعقيد؟ لماذا توجد فراغات داخلية ما زالت وظيفة بعضها غير معروفة؟ وهل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة؟</p>
+          <p>هذا الكتاب يقدّم قراءة مختلفة للهرم: قراءة تبحث في الهندسة والمواد والطاقة، مع الفصل بين ما نعرفه من الأدلة وما نستنتجه من النظرية.</p>
+          <span class="highlight">وهنا تبدأ رحلة البحث عن السر.</span>
+        `
+      },
+      {
+        title: 'الفصل الأول',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الهرم الذي لا يشبه ما نتوقعه من قبر</h3>
+          <p>عندما نفكر في مقبرة ملكية، نتوقع عادةً أن نجد شيئًا يعرّفنا بصاحب القبر: كتابات، أسماء، مشاهد، طقوس، تماثيل، مقتنيات، أو على الأقل بقايا دفن واضحة.</p>
+          <p>لكن الهرم الأكبر يختلف عن الأهرامات اللاحقة في عدم وجود نصوص الأهرام الجنائزية المعروفة داخله. وقد ظهرت أقدم نصوص الأهرام المعروفة في هرم أوناس في الأسرة الخامسة.</p>
+          <p>هذا لا يثبت أن الهرم لم يكن مقبرة، لكنه يطرح سؤالًا مهمًا:</p>
+          <span class="highlight">هل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة لهذا البناء؟</span>
+        `
+      },
+      {
+        title: 'الفصل الثاني',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">أين جثمان الملك؟</h3>
+          <p>لم تُعثر داخل الهرم الأكبر على مومياء خوفو. الموجود في حجرة الملك هو تابوت حجري، بينما يمكن تفسير غياب الجثمان باحتمالات متعددة، منها النهب القديم أو إزالة الجثمان في زمن غير معروف.</p>
+          <p>لذلك فإن غياب المومياء ليس وحده دليلًا قاطعًا على وظيفة الهرم، لكنه يجعل السؤال مفتوحًا.</p>
+          <span class="highlight">هل كان التابوت جزءًا من دفن ملكي فعلًا، أم كان جزءًا من تصميم أكبر؟</span>
+          <p>الأهم هو النظر إلى الهرم باعتباره منظومة كاملة، لا مجرد حجرة منفردة.</p>
+        `
+      },
+      {
+        title: 'الفصل الثالث',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الهرم والعلوم التي لم نكن نعرفها عنه</h3>
+          <p>في عام 2017 أعلن فريق دولي عن اكتشاف فراغ داخلي كبير في الهرم الأكبر باستخدام الميونات القادمة من الأشعة الكونية. أطلقت الدراسة عليه اسم Big Void، وقدرت طوله الأدنى بأكثر من 30 مترًا، بينما بقيت وظيفته غير معروفة.</p>
+          <p>هذه النتيجة لا تثبت نظرية الطاقة، لكنها تذكّرنا بحقيقة مهمة: ما زالت هناك تفاصيل داخل الهرم لم نفهمها بالكامل.</p>
+          <span class="highlight">ومعرفة أن جزءًا من البنية ظل مجهولًا حتى العصر الحديث يجعل الأسئلة الجديدة مشروعة.</span>
+        `
+      },
+      {
+        title: 'الفصل الرابع',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">من الحجر إلى الطاقة</h3>
+          <p>هنا نصل إلى الفكرة الأساسية في الكتاب: ماذا لو لم يكن السؤال الحقيقي هو كيف بُني الهرم فقط، بل لماذا صُمم بهذه الطريقة؟</p>
+          <p>الهندسة يمكن أن تؤثر في الحرارة والموجات والضغط والاهتزاز والحقول. والمواد المختلفة قد تمتلك خصائص فيزيائية مختلفة. لذلك يصبح الهرم موضوعًا يستحق الدراسة ليس فقط كأثر، بل كنظام هندسي.</p>
+          <span class="highlight">هل كان تصميم الهرم مرتبطًا باستغلال ظاهرة فيزيائية محددة؟</span>
+          <p>هذه هي نقطة انطلاق النظرية.</p>
+        `
+      },
+      {
+        title: 'الفصل الخامس',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الهرم والطاقة الكهرومغناطيسية</h3>
+          <p>دُرست في العصر الحديث الخصائص الكهرومغناطيسية لنماذج هندسية للهرم الأكبر. هذه الأبحاث لا تثبت أن المصريين القدماء استخدموا الهرم كمولد كهربائي، لكنها توضح أن شكل المبنى يمكن أن يكون موضوعًا لتحليل فيزيائي حقيقي.</p>
+          <p>الطاقة ليست شكلًا واحدًا؛ توجد الطاقة الحرارية والكيميائية والميكانيكية والكهربائية والكهرومغناطيسية، ويمكن تحويل بعض صورها إلى صور أخرى.</p>
+          <span class="highlight">ولهذا فإن السؤال ليس: هل الهرم سحر؟ بل: هل كانت هندسته مصممة لاستغلال ظاهرة فيزيائية محددة؟</span>
+        `
+      },
+      {
+        title: 'الفصل السادس',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الجرانيت والكوارتز</h3>
+          <p>استخدم الجرانيت في أجزاء مهمة من الهرم، والجرانيت يحتوي على معادن من بينها الكوارتز. والكوارتز معروف بخصائصه الكهروضغطية في ظروف محددة.</p>
+          <p>لكن وجود الكوارتز في الجرانيت لا يعني وحده أن الهرم كان بطارية أو مولدًا كهربائيًا. هذه الفكرة تحتاج إلى نموذج قابل للقياس يوضح مصدر الطاقة وآلية التحويل والمخرج.</p>
+          <span class="highlight">السؤال الحقيقي: هل اجتمعت المواد والهندسة والظروف الفيزيائية في منظومة قابلة لإنتاج طاقة مفيدة؟</span>
+        `
+      },
+      {
+        title: 'الفصل السابع',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الماء… الحلقة المفقودة؟</h3>
+          <p>تربط بعض نظريات الهرم بالطاقة بين الماء والبنية الداخلية. والماء يمكن أن يشارك في أنظمة الضغط والتدفق ونقل الحرارة والتفاعلات الكيميائية.</p>
+          <p>لكن مجرد وجود الماء لا يثبت وجود مولد. نحتاج لمسار واضح للماء، وفروق ضغط قابلة للقياس، وآلية لتحويل الحركة أو الضغط إلى طاقة قابلة للاستخدام.</p>
+          <span class="highlight">فالاختراع ليس مجرد وجود ظاهرة فيزيائية، بل تحويلها إلى نظام يعمل.</span>
+        `
+      },
+      {
+        title: 'الفصل الثامن',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">تسلا والأهرامات</h3>
+          <p>نيكولا تسلا كان من أهم رواد الكهرباء الحديثة، وأسهم في أنظمة التيار المتردد والمحرك الحثي وتجارب نقل الطاقة لاسلكيًا.</p>
+          <p>هذا يجعل فكرة الطاقة اللاسلكية مرتبطة بتاريخ علمي حقيقي. لكن لا يوجد دليل تاريخي موثوق يثبت أن تسلا كان يقلد الهرم الأكبر أو أنه أعاد بناء تقنية مصرية قديمة.</p>
+          <span class="highlight">التشابه في الفكرة مثير للاهتمام، لكنه ليس دليلًا تاريخيًا على وجود علاقة مباشرة.</span>
+        `
+      },
+      {
+        title: 'الفصل التاسع',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">الآية التي دفعتني إلى التفكير</h3>
+          <p>يقول الله تعالى:</p>
+          <div style="text-align:center;background:#6f5b1e;color:#fff3bc;border-radius:12px;padding:1rem;margin:1rem 0;font-family:'Reem Kufi',sans-serif;font-size:clamp(1.15rem,3.3vw,1.7rem);line-height:1.9;">
+            ﴿كَالَّذِينَ مِن قَبْلِكُمْ كَانُوا أَشَدَّ مِنكُمْ قُوَّةً وَأَكْثَرَ أَمْوَالًا وَأَوْلَادًا فَاسْتَمْتَعُوا بِخَلَاقِهِمْ فَاسْتَمْتَعْتُمْ بِخَلَاقِكُمْ كَمَا اسْتَمْتَعَ الَّذِينَ مِن قَبْلِكُمْ بِخَلَاقِهِمْ...﴾
+          </div>
+          <p style="text-align:center;color:var(--text-muted)">سورة التوبة، الآية 69.</p>
+          <p>الآية تتحدث عن أقوام سابقين كانوا أشد قوة وأكثر مالًا وأولادًا. ولا يصح تقديمها كدليل مباشر على الكهرباء أو الأهرامات، لكن يمكن أن تدفع القارئ للتأمل في قوة الحضارات السابقة وما بلغته من عمران وقدرة.</p>
+        `
+      },
+      {
+        title: 'الفصل العاشر',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">أكبر سؤال: لماذا هذا التصميم؟</h3>
+          <p>الهرم الأكبر ليس مجرد كومة من الحجارة. إنه مشروع هندسي هائل، يحتوي على ممرات وحجرات وفراغات ومواد مختلفة، وما زال بعض تفاصيله موضع دراسة.</p>
+          <p>الرأي التقليدي يفسر الهرم داخل المنظومة الدينية والملكية والجنائزية لمصر القديمة. لكن يبقى من المشروع أن نسأل: هل كانت الوظيفة الجنائزية هي الوظيفة الوحيدة؟</p>
+          <span class="highlight">قد تكون للمنشأة وظائف متعددة، لكن كل وظيفة إضافية تحتاج إلى دليل إضافي.</span>
+        `
+      },
+      {
+        title: 'الفصل الحادي عشر',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">لماذا لا يكفي أن نقول «إنها مقبرة»؟</h3>
+          <p>كلمة «مقبرة» تجيب عن سؤال: لمن بُني؟ لكنها لا تجيب وحدها عن كل تفاصيل الهندسة.</p>
+          <ul>
+            <li>لماذا اتخذ هذا الشكل تحديدًا؟</li>
+            <li>ما الوظيفة الدقيقة لكل فراغ؟</li>
+            <li>لماذا صممت هذه الممرات؟</li>
+            <li>لماذا اختيرت هذه المواد؟</li>
+            <li>لماذا بقيت أجزاء من تصميمه مجهولة؟</li>
+          </ul>
+          <span class="highlight">في العلم، لا تكفي إجابة جزئية عندما تكون الأسئلة الأخرى ما زالت قائمة.</span>
+        `
+      },
+      {
+        title: 'الفصل الثاني عشر',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">نظرية الهرم كمحطة طاقة</h3>
+          <p>يمكن صياغة النظرية في أبسط صورة:</p>
+          <div class="quote-box"><span class="highlight">ربما صُمم الهرم الأكبر ليجمع أو يحول أو يركز أشكالًا من الطاقة الطبيعية من خلال هندسته ومواده وموقعه، وربما كانت هذه الطاقة مرتبطة بالمجال الكهرومغناطيسي والاهتزاز والضغط والحركة والبيئة المحيطة.</span></div>
+          <p>هذه هي الفكرة المركزية للكتاب.</p>
+          <p>لكن تحويلها إلى حقيقة علمية يتطلب مصدرًا واضحًا للطاقة، وآلية لالتقاطها وتحويلها وتوجيهها، وآثارًا مادية تدل على عمل النظام، ودليلًا أثريًا على أن المصريين قصدوا هذه الوظيفة.</p>
+          <p>لهذا يقدم الكتاب النظرية باعتبارها تفسيرًا بديلًا يحتاج إلى اختبار وتجربة، بينما يظل التفسير الأثري التقليدي مدعومًا بأدلة جنائزية مهمة.</p>
+        `
+      },
+      {
+        title: 'الفصل الثالث عشر',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">ما الذي نستطيع إثباته فعلًا؟</h3>
+          <h4 style="color:var(--gold-dark);font-family:'Reem Kufi',sans-serif">الطبقة الأولى: حقائق أثرية</h4>
+          <p>الهرم الأكبر مرتبط بالملك خوفو، ومجمع الجيزة يضم منشآت جنائزية ومراكب ومعابد وممرات.</p>
+          <h4 style="color:var(--gold-dark);font-family:'Reem Kufi',sans-serif">الطبقة الثانية: حقائق علمية</h4>
+          <p>يمكن دراسة الحجر والمواد والفراغات والهندسة فيزيائيًا، وقد كشفت تقنيات الميون عن فراغ داخلي كبير لم يكن معروفًا من قبل.</p>
+          <h4 style="color:var(--gold-dark);font-family:'Reem Kufi',sans-serif">الطبقة الثالثة: فرضية هذا الكتاب</h4>
+          <p>أن تصميم الهرم قد يكون مرتبطًا بمنظومة لتوليد أو تحويل أو نقل الطاقة، وأن بعض عناصره ربما كانت لها وظيفة تتجاوز ما نفهمه اليوم.</p>
+        `
+      },
+      {
+        title: 'رأي المؤلف',
+        content: `
+          <div class="opinion-card">
+            <div class="main-opinion">أنا أرى أن الهرم الأكبر لم يكن مجرد مقبرة، بل كان مولد طاقة عظيمًا أو منظومة هندسية عملاقة مرتبطة بالطاقة.</div>
+          </div>
+          <p>بعد ما قرأته وبحثت فيه، أصبحت أعتقد أن التفسير الجنائزي وحده لا يجيب، بالنسبة لي، عن كل الأسئلة التي يطرحها تصميم الهرم الأكبر.</p>
+          <p>أنا أرى أن الحجم الهائل، ودقة البناء، وتوزيع الممرات والحجرات، واستخدام مواد مختلفة، والفراغات الداخلية، كلها تجعلني أعتقد أن وراء الهرم وظيفة هندسية أكبر من مجرد حفظ جثمان ملك.</p>
+          <p>وأعتقد أن المصريين القدماء ربما امتلكوا معرفة متقدمة في التعامل مع الطاقة والمواد والاهتزاز والهندسة، وأن الهرم كان أحد أعظم تطبيقات هذه المعرفة.</p>
+          <p>أنا لا أزعم أن كل تفاصيل طريقة عمل هذه المنظومة معروفة لنا اليوم. لكنني أؤمن أن الاتجاه الذي يستحق أن نبحث فيه بجدية هو الطاقة.</p>
+          <span class="highlight">أنا عندما أنظر إلى الهرم، لا أرى مجرد قبر… أنا أرى آلة.</span>
+          <p>آلة حجرية هائلة، صممها بشر عاشوا منذ آلاف السنين، وربما كانت وظيفتها الحقيقية تتجاوز ما وصل إلينا من تفسير.</p>
+          <div class="quote-box"><span class="highlight">«أنا أؤمن أن الهرم الأكبر كان مولد طاقة عظيمًا، وأن السر الحقيقي له لم نكتشفه بالكامل بعد.»</span></div>
+          <p style="text-align:center;font-weight:700">قد يختلف معي القارئ، وقد يرفض النظرية، لكن هدفي أن يخرج من الكتاب بسؤال واحد لا ينساه:</p>
+          <span class="highlight">هل بنى المصري القديم الهرم ليُدفن فيه فقط… أم أنه كان يبني شيئًا لم نفهم وظيفته الحقيقية حتى الآن؟</span>
+        `
+      },
+      {
+        title: 'الخاتمة',
+        content: `
+          <h3 style="text-align:center;color:var(--text-muted);font-family:'Reem Kufi',sans-serif;margin-bottom:1.2rem">ربما كان السر في السؤال نفسه</h3>
+          <p>ربما لن يكون أعظم اكتشاف متعلق بالأهرامات هو العثور على غرفة أخرى. ربما يكون أعظم اكتشاف هو أن السؤال الذي ظللنا نطرحه لآلاف السنين كان سؤالًا ناقصًا.</p>
+          <span class="highlight">بدلًا من «أين دُفن الملك؟»<br>ربما يجب أن نسأل: «ماذا كان هذا المبنى يفعل؟»</span>
+          <p>الهرم الأكبر يقف أمامنا منذ آلاف السنين، وما زالت تقنيات حديثة تكشف لنا أن معرفتنا ببنيته ليست كاملة.</p>
+          <p>قد تكون نظرية الهرم كمحطة طاقة صحيحة، وقد تكون خاطئة، وقد يكون الهرم قد جمع بين وظائف متعددة. لكن الشيء المؤكد هو أن البحث لم ينتهِ.</p>
+          <p>ولهذا لا أريد أن يكون هذا الكتاب خاتمة الحديث عن الأهرامات، بل بداية لسؤال جديد.</p>
+          <p style="text-align:center;font-weight:800;margin-top:2rem">وربما يكون السر ما زال موجودًا أمام أعيننا… فوق الرمال، بين الحجارة، داخل الهرم… ينتظر فقط من يسأل السؤال الصحيح.</p>
+        `
+      },
+      {
+        title: 'ملاحظة ومصادر',
+        content: `
+          <h4 style="color:var(--gold-dark);font-family:'Reem Kufi',sans-serif;border-bottom:2px solid var(--gold-primary);padding-bottom:10px">ملاحظة المؤلف</h4>
+          <p class="sources">هذا الكتاب يميز بين المعلومات الأثرية الموثقة وبين الاستنتاجات والنظريات. وجود مجمع جنائزي حول الهرم دليل مهم لصالح التفسير الجنائزي التقليدي، بينما وجود فراغات مجهولة الوظيفة أو خصائص فيزيائية قابلة للدراسة لا يثبت وحده أن الهرم كان مولدًا كهربائيًا. الهدف من الكتاب هو طرح فرضية ودعوة القارئ إلى فحص الأدلة بدل الاكتفاء بالتفسير الجاهز.</p>
+          <h4 style="color:var(--gold-dark);font-family:'Reem Kufi',sans-serif">مصادر مقترحة</h4>
+          <ul class="sources">
+            <li>وزارة السياحة والآثار المصرية — الهرم الأكبر وهضبة الجيزة.</li>
+            <li>Morishima et al., Nature (2017) — Discovery of a big void in Khufu’s Pyramid by observation of cosmic-ray muons.</li>
+            <li>University College London — Pyramid Texts.</li>
+            <li>The Metropolitan Museum of Art — Egypt in the Old Kingdom.</li>
+            <li>IEEE — مواد تاريخية عن نيكولا تسلا وأنظمة التيار المتردد ونقل الطاقة.</li>
+          </ul>
+          <div style="margin-top:3rem;text-align:center;padding-top:1.5rem;border-top:2px dashed rgba(212,175,55,.5)">
+            <p style="color:var(--text-muted);margin-bottom:.3rem">تأليف وإعداد</p>
+            <h3 style="font-family:'Reem Kufi',sans-serif;color:var(--gold-dark);font-size:clamp(1.3rem,4vw,2.2rem);margin:0">عبدالرحمن أحمد الطيب</h3>
+          </div>
+        `
+      }
+    ];
 
-                pageDiv.id = `page-${i}`;
-                pageDiv.style.zIndex = bookData.length - i;
-                bookElement.appendChild(pageDiv);
-            }
-            updateButtons();
+    // ==================== منطق الكتاب ====================
+    let currentPageIndex = 0;
+    const bookElement = document.getElementById('book');
+    const pageIndicator = document.getElementById('page-indicator');
+
+    function createPages() {
+      bookElement.innerHTML = '';
+      for (let i = bookData.length - 1; i >= 0; i--) {
+        const data = bookData[i];
+        const page = document.createElement('div');
+        page.id = `page-${i}`;
+        page.className = data.isCover ? 'page cover' : 'page';
+        page.style.zIndex = String(bookData.length - i);
+
+        if (!data.isCover) {
+          page.innerHTML = `
+            <div class="page-content book-text">
+              <h2 class="chapter-title">${data.title}</h2>
+              ${data.content}
+            </div>
+          `;
         }
+        bookElement.appendChild(page);
+      }
+    }
 
-        function goNextPage() {
-            if (currentPageIndex < bookData.length - 1) {
-                const page = document.getElementById(`page-${currentPageIndex}`);
-                page.classList.add('flipped');
-                currentPageIndex++;
-                updateButtons();
-            }
-        }
+    function updateButtons() {
+      const prev = document.getElementById('prev-btn');
+      const next = document.getElementById('next-btn');
+      prev.disabled = currentPageIndex === 0;
+      next.disabled = currentPageIndex === bookData.length - 1;
 
-        function goPrevPage() {
-            if (currentPageIndex > 0) {
-                currentPageIndex--;
-                const page = document.getElementById(`page-${currentPageIndex}`);
-                page.classList.remove('flipped');
-                updateButtons();
-            }
-        }
+      if (currentPageIndex === 0) {
+        pageIndicator.textContent = 'الغلاف';
+        next.innerHTML = '<span class="btn-text">افتح الكتاب</span><i class="fas fa-book-open"></i>';
+      } else {
+        pageIndicator.textContent = `صفحة ${currentPageIndex} من ${bookData.length - 1}`;
+        next.innerHTML = '<span class="btn-text">التالي</span><i class="fas fa-arrow-left"></i>';
+      }
+    }
 
-        function updateButtons() {
-            document.getElementById('prev-btn').disabled = currentPageIndex === 0;
-            document.getElementById('next-btn').disabled = currentPageIndex === bookData.length - 1;
+    function goNextPage() {
+      if (currentPageIndex >= bookData.length - 1) return;
+      const page = document.getElementById(`page-${currentPageIndex}`);
+      if (page) page.classList.add('flipped');
+      currentPageIndex++;
+      updateButtons();
+      window.scrollTo(0, 0);
+    }
 
-            if (currentPageIndex === 0) {
-                pageIndicator.innerText = "الغلاف";
-                document.getElementById('next-btn').innerHTML = '<span class="btn-text">افتح الكتاب</span> <i class="fas fa-book-open"></i>';
-            } else {
-                pageIndicator.innerText = `صفحة ${currentPageIndex} من ${bookData.length - 1}`;
-                document.getElementById('next-btn').innerHTML = '<span class="btn-text">التالي</span> <i class="fas fa-arrow-left"></i>';
-            }
-        }
+    function goPrevPage() {
+      if (currentPageIndex <= 0) return;
+      currentPageIndex--;
+      const page = document.getElementById(`page-${currentPageIndex}`);
+      if (page) page.classList.remove('flipped');
+      updateButtons();
+    }
 
-        // ==================== تحميل الصفحة ====================
-        window.onload = () => {
-            initBook();
+    // دعم الأسهم على الكيبورد بدون تعطيلها داخل الحقول مستقبلًا
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') goNextPage();
+      if (e.key === 'ArrowRight') goPrevPage();
+    });
 
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                const appContainer = document.getElementById('app-container');
+    window.addEventListener('load', () => {
+      createPages();
+      updateButtons();
+      addDigitalWatermark();
 
-                splash.style.opacity = '0';
-                splash.style.visibility = 'hidden';
+      const splash = document.getElementById('splash-screen');
+      const app = document.getElementById('app-container');
 
-                setTimeout(() => {
-                    appContainer.style.display = 'flex';
-                    setTimeout(() => {
-                        appContainer.style.opacity = '1';
-                    }, 50);
-                }, 1500);
-            }, 3000);
-        };
-    </script>
-
+      setTimeout(() => {
+        splash.style.opacity = '0';
+        splash.style.visibility = 'hidden';
+        setTimeout(() => {
+          splash.style.display = 'none';
+          app.style.display = 'flex';
+          requestAnimationFrame(() => { app.style.opacity = '1'; });
+        }, 900);
+      }, 2200);
+    });
+  </script>
 </body>
 </html>
+EOF
+python - <<'PY'
+from pathlib import Path
+p=Path('/mnt/data/sirr_alahramaat.html')
+print(p, p.stat().st_size)
+PY
